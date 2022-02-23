@@ -1,0 +1,56 @@
+<div class="detail container">
+  <button type="button" class="btn btn-success">
+    <a href="admin/roles/new" class="text-light">Add new item</a>
+  </button>
+  <h2>
+    <span *ngIf="createMode; else updateText">Create</span
+    ><ng-template #updateText>Update</ng-template>
+  </h2>
+  <form #detailForm="ngForm" (ngSubmit)="detailForm.form.valid && onSubmit()">
+    <div class="form-control">
+      <label for="">Name</label>
+      <input
+        type="text"
+        #name="ngModel"
+        [(ngModel)]="item.name"
+        name="name"
+        required
+      />
+    </div>
+    <div class="form-control">
+      <label for="">created date</label>
+      <input
+        readonly
+        type="text"
+        [ngModel]="item.createdDate"
+        name="created-date"
+      />
+    </div>
+    <div class="form-control">
+      <label for="">modified date</label>
+      <input
+        readonly
+        type="text"
+        [ngModel]="item.modifiedDate"
+        name="modified-date"
+      />
+    </div>
+    <div class="form-control">
+      <label for="">Enabled</label>
+      <input type="checkbox" [(ngModel)]="item.enabled" name="enabled" />
+    </div>
+
+    <div *ngIf="detailForm.submitted && name.invalid" class="error">
+      Name is invalid
+    </div>
+
+    <button>Submit</button>
+  </form>
+
+  <div class="container my-5">
+    <button type="button" class="btn btn-success mr-5">
+      <a href="admin/roles/" class="text-light">To list page</a>
+    </button>
+    <button type="button" class="btn btn-dark" (click)="back()">Back</button>
+  </div>
+</div>

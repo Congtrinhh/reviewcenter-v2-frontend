@@ -1,0 +1,54 @@
+<app-search></app-search>
+
+<section class="categories">
+  <h3>Categories</h3>
+  <ul>
+    <li
+      *ngFor="let category of categories"
+      (click)="handleCategoryNameClicked($event, category.id)"
+    >
+      {{ category.name }}
+    </li>
+  </ul>
+</section>
+
+<section class="centers">
+  <h2>Centers</h2>
+  <ul>
+    <li
+      *ngFor="
+        let center of centers
+          | paginate
+            : {
+                itemsPerPage: itemsPerPage,
+                currentPage: currentPage,
+                totalItems: totalItems
+              }
+      "
+    >
+      <div *ngIf="center.imageString" class="image">
+        <img
+          [src]="base64Prefix + center.imageString"
+          alt="logo of the center "
+          width="40"
+        />
+      </div>
+      <div class="name">{{ center.name }}</div>
+      <div class="address">{{ center.address }}</div>
+      <div class="size">{{ center.sizeMin }} - {{ center.sizeMax }}</div>
+      <div class="name">{{ center.address }}</div>
+      <div class="category-name" *ngFor="let category of categories">
+        <div *ngIf="center.categoryId == category.id">{{ category.name }}</div>
+      </div>
+    </li>
+  </ul>
+
+  <div class="pagination-bar">
+    <pagination-controls
+      previousLabel="Prev"
+      nextLabel="Next"
+      [responsive]="true"
+      (pageChange)="handlePageChange($event)"
+    ></pagination-controls>
+  </div>
+</section>

@@ -1,0 +1,71 @@
+<div class="list container">
+  <!-- page size select -->
+  <div class="page-sizes">
+    <span>Items per page</span>
+    <select (change)="handlePageSizeChange()" [(ngModel)]="itemsPerPage">
+      <option *ngFor="let size of pageSizes" [ngValue]="size">
+        {{ size }}
+      </option>
+    </select>
+  </div>
+  <div class="page-info">
+    Total items: [<strong>{{ totalItems }}</strong
+    >]
+  </div>
+
+  <!-- table -->
+  <table id="" class="">
+    <thead>
+      <th>id</th>
+      <th>email</th>
+      <th>display name</th>
+      <th>roles</th>
+      <th>enabled</th>
+      <th>created date</th>
+      <th>modified date</th>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="
+          let item of items
+            | paginate
+              : {
+                  itemsPerPage: itemsPerPage,
+                  currentPage: currentPage,
+                  totalItems: totalItems
+                }
+        "
+      >
+        <td>{{ item.id }}</td>
+        <td>{{ item.email }}</td>
+        <td>{{ item.displayName }}</td>
+        <td>{{ item.roleNames }}</td>
+        <td>{{ item.enabled }}</td>
+        <td>{{ item.createdDate }}</td>
+        <td>{{ item.modifiedDate }}</td>
+        <td>
+          <a [routerLink]="item.id">Detail</a>
+          <button type="button" (click)="handleSelectItemToDelete(item.id)">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- pagination bar -->
+  <div class="pagination-bar">
+    <pagination-controls
+      previousLabel="Prev"
+      nextLabel="Next"
+      [responsive]="true"
+      (pageChange)="handlePageChange($event)"
+    ></pagination-controls>
+  </div>
+
+  <app-delete-confirm-modal
+    [show]="showConfirmDeleteView"
+    (confirmToDeleteEvent)="handleDelete()"
+    (cancelToDeleteEvent)="hideConfirmDeleteView()"
+  ></app-delete-confirm-modal>
+</div>

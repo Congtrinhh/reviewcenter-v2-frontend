@@ -1,0 +1,22 @@
+<h2>Search</h2>
+<div class="container">
+  <input
+    name="searching-key"
+    type="text"
+    #searchingKey
+    (input)="handleSearch(searchingKey.value)"
+    [(ngModel)]="currentSearchingKey"
+  />
+  <button type="reset" (click)="clearSearchingKey()">cancel</button>
+
+  <section class="result">
+    <ul *ngIf="items.length > 0" class="search-result">
+      <li *ngFor="let item of items">
+        {{ item.name }}
+      </li>
+    </ul>
+    <ul *ngIf="items.length == 0 && message">
+      <li>{{ message }}</li>
+    </ul>
+  </section>
+</div>

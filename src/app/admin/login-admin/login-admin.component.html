@@ -1,0 +1,37 @@
+<h1>Login</h1>
+
+<form
+  #loginForm="ngForm"
+  (ngSubmit)="loginForm.form.valid && handleFormSubmit()"
+>
+  <div class="form-control">
+    <label for="">Email</label>
+    <input
+      type="email"
+      email
+      required
+      #email="ngModel"
+      [(ngModel)]="loginRequest.email"
+      name="email"
+    />
+    <div *ngIf="loginForm.submitted && email.invalid">Email is invalid</div>
+  </div>
+
+  <div class="form-control">
+    <label for="">Password</label>
+    <input
+      type="password"
+      required
+      #password="ngModel"
+      [(ngModel)]="loginRequest.password"
+      name="password"
+    />
+    <div *ngIf="loginForm.submitted && password.invalid">
+      Password is invalid
+    </div>
+  </div>
+
+  <button>Submit</button>
+</form>
+
+<div *ngIf="!isLoggedIn">{{ errorMessage }}</div>

@@ -1,0 +1,12 @@
+<div *ngIf="show" class="confirm-delete my-4">
+  <button type="button" class="btn" (click)="raiseCancelToConfirmDeleteEvent()">
+    &times;
+  </button>
+  <h3>Are you sure to delete?</h3>
+  <button (click)="raiseConfirmToDeleteEvent()" class="btn btn-danger mr-4">
+    Yes, delete
+  </button>
+  <button (click)="raiseCancelToConfirmDeleteEvent()" class="btn btn-dark">
+    Cancel
+  </button>
+</div>

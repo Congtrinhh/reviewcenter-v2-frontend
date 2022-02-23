@@ -1,0 +1,198 @@
+<div class="detail container">
+  <button type="button" class="btn btn-success">
+    <a href="admin/centers/new" class="text-light">Add new item</a>
+  </button>
+  <h2>
+    <span *ngIf="createMode; else updateText">Create</span
+    ><ng-template #updateText>Update</ng-template>
+  </h2>
+  <form #detailForm="ngForm" (ngSubmit)="detailForm.form.valid && onSubmit()">
+    <div class="form-control">
+      <label for="">Name</label>
+      <input
+        type="text"
+        #name="ngModel"
+        [(ngModel)]="item.name"
+        name="name"
+        required
+      />
+      <div *ngIf="detailForm.submitted && name.invalid" class="error">
+        Name is invalid
+      </div>
+    </div>
+    <div class="form-control">
+      <label for="">created date</label>
+      <input
+        readonly
+        type="text"
+        [ngModel]="item.createdDate"
+        name="created-date"
+      />
+    </div>
+    <div class="form-control">
+      <label for="">modified date</label>
+      <input
+        readonly
+        type="text"
+        [ngModel]="item.modifiedDate"
+        name="modified-date"
+      />
+    </div>
+    <div class="form-control">
+      <label for="">Enabled</label>
+      <input type="checkbox" [(ngModel)]="item.enabled" name="enabled" />
+    </div>
+
+    <div class="form-control">
+      <label for="">Address</label>
+      <input type="type" [(ngModel)]="item.address" name="address" required />
+    </div>
+
+    <div class="form-control">
+      <label for="">Category</label>
+      <select
+        [(ngModel)]="item.categoryId"
+        #categoryId="ngModel"
+        name="category-id"
+        required
+      >
+        <option *ngFor="let category of categories" [ngValue]="category.id">
+          {{ category.name }}
+        </option>
+      </select>
+      <div *ngIf="detailForm.submitted && categoryId.invalid" class="error">
+        category is required
+      </div>
+    </div>
+
+    <div class="form-control">
+      <label for="">Size range</label>
+      <input
+        type="number"
+        name="size-min"
+        #sizeMin="ngModel"
+        [(ngModel)]="item.sizeMin"
+        required
+      />
+      <input
+        type="number"
+        name="size-max"
+        #sizeMax="ngModel"
+        [(ngModel)]="item.sizeMax"
+        required
+      />
+      <div *ngIf="detailForm.submitted && (sizeMin.invalid || sizeMax.invalid)">
+        Size range is required
+      </div>
+    </div>
+
+    <div class="form-control my-5">
+      <label for="">Description</label>
+      <textarea name="description" [(ngModel)]="item.description"></textarea>
+    </div>
+
+    <div class="form-control">
+      <label for="">Select file</label>
+      <input
+        type="file"
+        name="image-file"
+        (change)="handleImageFileChange($event)"
+      />
+    </div>
+
+    <img
+      *ngIf="!createMode && item.imageString"
+      [src]="base64Prefix + item.imageString"
+      alt="logo of the center"
+      width="40"
+    />
+
+    <button>Submit</button>
+  </form>
+
+  <button
+    type="button"
+    class="btn btn-success"
+    *ngIf="!showRatingSection"
+    (click)="handleShowRatingSection()"
+  >
+    Show ratings
+  </button>
+
+  <section class="ratings" *ngIf="showRatingSection">
+    <button
+      type="button"
+      class="btn btn-success"
+      (click)="handleHideRatingSection()"
+    >
+      Hide ratings
+    </button>
+
+    <div class="list container">
+      <div class="page-info">
+        Total items: [<strong>{{ totalItems }}</strong
+        >]
+      </div>
+
+      <table id="" class="">
+        <thead>
+          <th>id</th>
+          <th>rate</th>
+          <th>enabled</th>
+          <th>created date</th>
+          <th>modified date</th>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let rating of ratings
+                | paginate
+                  : {
+                      itemsPerPage: itemsPerPage,
+                      currentPage: currentPage,
+                      totalItems: totalItems
+                    }
+            "
+          >
+            <td>{{ rating.id }}</td>
+            <td>{{ rating.rate }}</td>
+            <td>{{ rating.enabled }}</td>
+            <td>{{ rating.createdDate }}</td>
+            <td>{{ rating.modifiedDate }}</td>
+            <td>
+              <button
+                type="button"
+                (click)="handleSelectItemToDelete(rating.id)"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- pagination bar -->
+      <div class="pagination-bar">
+        <pagination-controls
+          previousLabel="Prev"
+          nextLabel="Next"
+          [responsive]="true"
+          (pageChange)="handlePageChange($event)"
+        ></pagination-controls>
+      </div>
+
+      <app-delete-confirm-modal
+        [show]="showConfirmDeleteView"
+        (confirmToDeleteEvent)="handleDelete()"
+        (cancelToDeleteEvent)="hideConfirmDeleteView()"
+      ></app-delete-confirm-modal>
+    </div>
+  </section>
+
+  <div class="container my-5">
+    <button type="button" class="btn btn-success mr-5">
+      <a href="admin/centers/" class="text-light">To list page</a>
+    </button>
+    <button type="button" class="btn btn-dark" (click)="back()">Back</button>
+  </div>
+</div>

@@ -1,0 +1,104 @@
+<button type="button" class="btn btn-success">
+  <a routerLink="new" class="text-light">Add new item</a>
+</button>
+
+<div class="search container">
+  <form #searchForm="ngForm">
+    <div class="form-control">
+      <label for="">name</label>
+      <input type="text" name="name" [(ngModel)]="searchTerms.name" />
+    </div>
+    <div class="form-control">
+      <label for="">enabled</label>
+      <select name="enabled-select" [(ngModel)]="searchTerms.enabled" value="">
+        <option value="">All</option>
+        <option value="true">Enabled</option>
+        <option value="false">Disabled</option>
+      </select>
+    </div>
+    <button (click)="resetSearchForm()">Reset</button>
+    <button (click)="onSearchButtonClick()">Search</button>
+  </form>
+</div>
+
+<div class="list container">
+  <!-- page size select -->
+  <div class="page-sizes">
+    <span>Items per page</span>
+    <select (change)="handlePageSizeChange()" [(ngModel)]="itemsPerPage">
+      <option *ngFor="let size of pageSizes" [ngValue]="size">
+        {{ size }}
+      </option>
+    </select>
+  </div>
+  <div class="page-info">
+    Total items: [<strong>{{ totalItems }}</strong
+    >]
+  </div>
+
+  <!-- table -->
+  <table id="" class="">
+    <thead>
+      <th>id</th>
+      <th>name</th>
+      <th>image</th>
+      <th>enabled</th>
+      <th>created date</th>
+      <th>modified date</th>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="
+          let item of items
+            | paginate
+              : {
+                  itemsPerPage: itemsPerPage,
+                  currentPage: currentPage,
+                  totalItems: totalItems
+                }
+        "
+      >
+        <td>{{ item.id }}</td>
+        <td>{{ item.name }}</td>
+        <td>
+          <img
+            *ngIf="item.imageString"
+            [src]="base64Prefix + item.imageString"
+            width="40"
+          />
+        </td>
+        <td>{{ item.enabled }}</td>
+        <td>{{ item.createdDate }}</td>
+        <td>{{ item.modifiedDate }}</td>
+        <td>
+          <a [routerLink]="item.id">Detail</a>
+          <button type="button" (click)="handleSelectItemToDelete(item.id)">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- pagination bar -->
+  <div class="pagination-bar">
+    <pagination-controls
+      previousLabel="Prev"
+      nextLabel="Next"
+      [responsive]="true"
+      (pageChange)="handlePageChange($event)"
+    ></pagination-controls>
+  </div>
+
+  <app-delete-confirm-modal
+    [show]="showConfirmDeleteView"
+    (confirmToDeleteEvent)="handleDelete()"
+    (cancelToDeleteEvent)="hideConfirmDeleteView()"
+  ></app-delete-confirm-modal>
+</div>
+
+<div *ngIf="errorMessage">{{ errorMessage }}</div>
+
+<div class="container">
+  <button type="button" class="btn btn-dark" (click)="back()">Back</button>
+</div>
