@@ -14,7 +14,7 @@ export class UserListComponent implements OnInit {
   searchTerms: any = {};
   items: User[] = [];
 
-  itemsPerPage = AppConstants.PAGE_SIZES_ADMIN[0];
+  itemsPerPage = AppConstants.PAGE_SIZES_ADMIN[1];
   currentPage = 1;
   totalItems = 0;
 

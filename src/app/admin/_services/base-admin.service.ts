@@ -22,7 +22,7 @@ export class BaseAdminService {
         searchTermsObject.page = 0;
       }
       if (!('size' in searchTermsObject)) {
-        searchTermsObject.size = AppConstants.PAGE_SIZES_ADMIN[0];
+        searchTermsObject.size = AppConstants.PAGE_SIZES_ADMIN[1];
       }
       queryParams = new URLSearchParams(searchTermsObject).toString();
     }

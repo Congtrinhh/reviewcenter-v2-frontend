@@ -1,0 +1,132 @@
+<div class="container">
+  <h2 *ngIf="createMode">Create</h2>
+  <h2 *ngIf="!createMode">Update</h2>
+
+  <div class="my-control">
+    <p>select roles</p>
+    <div *ngFor="let role of roles">
+      <input
+        type="checkbox"
+        name="role-id"
+        (change)="handleRoleCheckboxClicked($event, role.id)"
+        [checked]="roleIds?.value.includes(role.id)"
+      />
+      {{ role.name }} <br />
+    </div>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="handleSubmit()" *ngIf="form">
+    <div class="my-control" formArrayName="roleIds">
+      <div *ngIf="formControls.roleIds.invalid" class="alert alert-danger">
+        <div *ngIf="formControls.email.errors?.required">
+          Choose at least 1 role
+        </div>
+      </div>
+      <p>{{ roleIds.controls.length }} roles selected</p>
+    </div>
+
+    <div class="my-control">
+      <input type="text" formControlName="email" placeholder="email" />
+      <div
+        *ngIf="
+          formControls.email.invalid &&
+          (formControls.email.dirty || formControls.email.touched)
+        "
+        class="alert alert-danger"
+      >
+        <div *ngIf="formControls.email.errors?.required">Email is required</div>
+        <div *ngIf="formControls.email.errors?.email">Must be email</div>
+      </div>
+    </div>
+
+    <div class="my-control">
+      <input
+        type="text"
+        formControlName="displayName"
+        placeholder="display name"
+      />
+      <div
+        *ngIf="
+          formControls.displayName.invalid &&
+          (formControls.displayName.dirty || formControls.displayName.touched)
+        "
+        class="alert alert-danger"
+      >
+        <div *ngIf="formControls.displayName.errors?.required">
+          Display name is required
+        </div>
+      </div>
+    </div>
+
+    <div class="password-wrapper">
+      <div class="my-control" *ngIf="!createMode">
+        <input
+          type="password"
+          formControlName="password"
+          placeholder="password"
+        />
+        <span
+          >Enter new password if you want to update it, else leave blank</span
+        >
+      </div>
+
+      <div class="my-control" *ngIf="createMode">
+        <input
+          type="password"
+          formControlName="password"
+          placeholder="password"
+        />
+        <div
+          *ngIf="
+            formControls.password.invalid &&
+            (formControls.password.dirty || formControls.password.touched)
+          "
+          class="alert alert-danger"
+        >
+          <div *ngIf="formControls.password.errors?.required">
+            Display name is required
+          </div>
+          <div *ngIf="formControls.password.errors?.minlength">
+            Display name at least 6 characters
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="my-control">
+      <input type="text" formControlName="avatarUrl" placeholder="avatarUrl" />
+    </div>
+
+    <div class="my-control">
+      <input type="checkbox" formControlName="enabled" /> Enabled<br />
+    </div>
+
+    <div class="my-control">
+      <input
+        type="text"
+        formControlName="provider"
+        placeholder="provider"
+        readonly
+      />
+    </div>
+
+    <div class="my-control">
+      <input
+        type="text"
+        formControlName="createdDate"
+        placeholder="createdDate"
+        readonly
+      />
+    </div>
+
+    <div class="my-control">
+      <input
+        type="text"
+        formControlName="modifiedDate"
+        placeholder="modifiedDate"
+        readonly
+      />
+    </div>
+    <button [disabled]="form.invalid">Submit</button>
+  </form>
+</div>

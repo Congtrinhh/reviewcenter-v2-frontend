@@ -2,7 +2,7 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminComponent } from './admin/admin.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { KeyValuePipe } from './_helpers/key-value.pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { YesNoPipe } from './_helpers/yes-no.pipe';
@@ -17,6 +17,8 @@ import { UserListComponent } from './user/user-list/user-list.component';
 import { UserDetailComponent } from './user/user-detail/user-detail.component';
 import { UrlValidatorDirective } from './_helpers/url-validator.directive';
 import { LoginAdminComponent } from './login-admin/login-admin.component';
+import { UserDetailReactiveFormComponent } from './user-detail-reactive-form/user-detail-reactive-form.component';
+import { AdminRoutingModule } from './admin-routing.module';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,15 @@ import { LoginAdminComponent } from './login-admin/login-admin.component';
     UserDetailComponent,
     UrlValidatorDirective,
     LoginAdminComponent,
+    UserDetailReactiveFormComponent,
   ],
-  imports: [CommonModule, RouterModule, FormsModule, NgxPaginationModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    NgxPaginationModule,
+    ReactiveFormsModule,
+    AdminRoutingModule,
+  ],
 })
 export class AdminModule {}

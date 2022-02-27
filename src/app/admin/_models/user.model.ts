@@ -9,5 +9,5 @@ export class User {
   createdDate?: string;
   modifiedDate?: string;
   roleNames?: string[];
-  roleIds?: string[] = [];
+  roleIds?: string[];
 }
