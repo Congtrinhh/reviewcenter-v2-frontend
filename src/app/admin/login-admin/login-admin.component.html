@@ -1,37 +1,78 @@
-<h1>Login</h1>
+<div class="app">
+  <div class="container">
+    <header class="header">
+      <i class="fa-regular fa-user icon"></i>
+      <h1>Đăng nhập</h1>
+    </header>
 
-<form
-  #loginForm="ngForm"
-  (ngSubmit)="loginForm.form.valid && handleFormSubmit()"
->
-  <div class="form-control">
-    <label for="">Email</label>
-    <input
-      type="email"
-      email
-      required
-      #email="ngModel"
-      [(ngModel)]="loginRequest.email"
-      name="email"
-    />
-    <div *ngIf="loginForm.submitted && email.invalid">Email is invalid</div>
-  </div>
+    <form #loginForm="ngForm" (ngSubmit)="handleFormSubmit()">
+      <div class="form-control">
+        <input
+          id="email"
+          type="email"
+          #email="ngModel"
+          [(ngModel)]="loginRequest.email"
+          name="email"
+          placeholder="Email"
+          required
+          email
+        />
+        <div
+          *ngIf="email.invalid && (email.touched || email.dirty)"
+          class="error"
+        >
+          <div *ngIf="email.errors?.required" class="alert alert-danger">
+            Email is required
+          </div>
+          <div *ngIf="email.errors?.email" class="alert alert-danger">
+            Need to be in email format
+          </div>
+        </div>
+      </div>
 
-  <div class="form-control">
-    <label for="">Password</label>
-    <input
-      type="password"
-      required
-      #password="ngModel"
-      [(ngModel)]="loginRequest.password"
-      name="password"
-    />
-    <div *ngIf="loginForm.submitted && password.invalid">
-      Password is invalid
+      <div class="form-control">
+        <label for="password"></label>
+        <input
+          id="password"
+          type="password"
+          #password="ngModel"
+          [(ngModel)]="loginRequest.password"
+          name="password"
+          placeholder="Password"
+          required
+          minlength="6"
+        />
+        <div
+          *ngIf="password.invalid && (password.touched || password.dirty)"
+          class="error"
+        >
+          <div *ngIf="password.errors?.required" class="alert alert-danger">
+            Password is required
+          </div>
+          <div *ngIf="password.errors?.minlength" class="alert alert-danger">
+            At least 6 characters
+          </div>
+        </div>
+      </div>
+
+      <div class="support-container">
+        <div class="remember-me-wrapper">
+          <input type="checkbox" name="remember-me" id="remember-me" />
+          <label for="remember-me">Remember me</label>
+        </div>
+        <a routerLink="/" class="link">Quên mật khẩu?</a>
+      </div>
+
+      <button class="btn btn-submit" [disabled]="loginForm.invalid">
+        Submit
+      </button>
+
+      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+    </form>
+
+    <div class="btns">
+      <button class="btn btn-gray" (click)="back()">Quay lại</button>
+      <a routerLink="/" class="link btn btn-gray">Về trang chủ</a>
     </div>
   </div>
-
-  <button>Submit</button>
-</form>
-
-<div *ngIf="!isLoggedIn">{{ errorMessage }}</div>
+</div>

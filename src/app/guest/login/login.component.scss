@@ -1,0 +1,68 @@
+.app {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .container {
+    width: 600px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.42);
+    border-radius: 8px;
+    padding: 60px 120px;
+
+    text-align: center;
+
+    h1 {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 50px;
+      overflow: auto;
+    }
+
+    ul {
+      li {
+        height: 54px;
+        width: 366px;
+        margin-bottom: 32px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.16);
+        border-radius: 4px;
+
+        a {
+          height: 100%;
+          padding: 0 0 0 12px;
+          display: flex;
+          align-items: center;
+
+          &:hover {
+            text-decoration: none;
+          }
+
+          img {
+            border-radius: 4px;
+            width: 36px;
+            height: 36px;
+            object-fit: cover;
+          }
+
+          span {
+            font-weight: bold;
+            font-size: 18px;
+            margin-left: 44px;
+          }
+        }
+      }
+    }
+
+    .btns {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 80px;
+    }
+  }
+}
+
+.error-message {
+  color: red;
+  text-align: left;
+}

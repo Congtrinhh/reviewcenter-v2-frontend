@@ -1,3 +1,135 @@
-<h1>admin header</h1>
+<div class="app">
+  <aside class="sidebar">
+    <div class="top">
+      <p class="header">review trung tam</p>
+      <div class="admin-info">
+        <img *ngIf="user?.avatarUrl" [src]="user.avatarUrl" alt="avatar" />
+        <span>{{ user?.displayName }}</span>
+      </div>
+      <ul class="parent-list">
+        <li>
+          <a
+            class="link"
+            data-bs-toggle="collapse"
+            href="#child-list-1"
+            role="button"
+            aria-expanded="false"
+            aria-controls="child-list-1"
+            >Center</a
+          >
+          <ul id="child-list-1" class="collapse multi-collapse child-list">
+            <li>
+              <a
+                routerLinkActive="link-active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                routerLink="/admin/centers/new"
+                >Create</a
+              >
+            </li>
+            <li>
+              <a
+                routerLinkActive="link-active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                routerLink="/admin/centers"
+                >List</a
+              >
+            </li>
+          </ul>
+        </li>
 
-<router-outlet></router-outlet>
+        <li>
+          <a
+            class="link"
+            data-bs-toggle="collapse"
+            href="#child-list-2"
+            role="button"
+            aria-expanded="false"
+            aria-controls="child-list-2"
+            >User</a
+          >
+          <ul id="child-list-2" class="collapse multi-collapse child-list">
+            <li>
+              <a
+                routerLinkActive="link-active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                routerLink="/admin/users/new"
+                >Create</a
+              >
+            </li>
+            <li>
+              <a
+                routerLinkActive="link-active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                routerLink="/admin/users"
+                >List</a
+              >
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a
+            class="link"
+            data-bs-toggle="collapse"
+            href="#child-list-3"
+            role="button"
+            aria-expanded="false"
+            aria-controls="child-list-3"
+            >Category</a
+          >
+          <ul id="child-list-3" class="collapse multi-collapse child-list">
+            <li>
+              <a
+                routerLinkActive="link-active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                routerLink="/admin/categories/new"
+                >Create</a
+              >
+            </li>
+            <li>
+              <a
+                routerLinkActive="link-active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                routerLink="/admin/categories"
+                >List</a
+              >
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a
+            class="link"
+            data-bs-toggle="collapse"
+            href="#child-list-4"
+            role="button"
+            aria-expanded="false"
+            aria-controls="child-list-4"
+            >Role</a
+          >
+          <ul id="child-list-4" class="collapse multi-collapse child-list">
+            <li>
+              <a
+                routerLinkActive="link-active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                routerLink="/admin/roles/new"
+                >Create</a
+              >
+            </li>
+            <li>
+              <a
+                routerLinkActive="link-active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                routerLink="/admin/roles"
+                >List</a
+              >
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="bottom">
+      <span class="logout" (click)="logout()">Logout</span>
+    </div>
+  </aside>
+
+  <div><router-outlet></router-outlet></div>
+</div>

@@ -16,6 +16,10 @@ import { authInterceptorProviders } from '../_helpers/auth.interceptor';
 import { HomeComponent } from './home/home.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SearchComponent } from './search/search.component';
+import { CenterDetailGuestComponent } from './center-detail-guest/center-detail-guest.component';
+import { ReviewBoxComponent } from './review-box/review-box.component';
+
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   providers: [authInterceptorProviders],
@@ -25,15 +29,18 @@ import { SearchComponent } from './search/search.component';
     GuestComponent,
     HomeComponent,
     SearchComponent,
+    CenterDetailGuestComponent,
+    ReviewBoxComponent,
   ],
   imports: [
     CommonModule,
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    GuestRoutingModule, // so that ...
+    GuestRoutingModule,
     RouterModule,
     NgxPaginationModule,
+    ReactiveFormsModule,
   ],
   exports: [],
 })

@@ -1,0 +1,99 @@
+$max-width: 600px;
+
+.main-content {
+  padding: 30px 72px;
+
+  .header {
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 34px;
+  }
+
+  form {
+    margin-top: 90px;
+    .form-control {
+      width: $max-width;
+      height: 40px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+
+      label {
+        min-width: 160px;
+      }
+      input[type="text"],
+      input[type="password"],
+      input[type="email"],
+      input[type="number"],
+      select,
+      textarea {
+        flex: 1;
+        height: 100%;
+        padding-left: 12px;
+
+        border-radius: 4px;
+        border: 1px solid #999;
+      }
+    }
+    .textarea-control {
+      align-items: flex-start;
+      min-height: 100px;
+    }
+
+    .btn-submit {
+      margin-top: 24px;
+      margin-bottom: 120px;
+    }
+  }
+
+  .btns {
+    .btn-left {
+      margin-right: 90px;
+    }
+  }
+}
+
+.alert {
+  padding: 0.5rem 0.5rem;
+  width: $max-width;
+  margin-bottom: 2rem;
+}
+
+.btn-show-ratings,
+.btn-hide-ratings {
+  margin-top: 80px;
+}
+
+section.ratings {
+  .page-info {
+    margin-bottom: 20px;
+    margin-top: 30px;
+  }
+
+  .list-container {
+    display: flex;
+    flex-direction: column;
+
+    .pagination-bar {
+      align-self: center;
+    }
+
+    td button {
+      background-color: transparent;
+      border: 0;
+      border-bottom: 1px solid;
+      font-weight: 500;
+      color: red;
+    }
+
+    th,
+    td {
+      max-width: 280px;
+    }
+
+    td.column-comment,
+    th.column-comment {
+      max-width: unset;
+    }
+  }
+}

@@ -1,25 +1,155 @@
-<div class="detail container">
-  <button type="button" class="btn btn-success">
-    <a href="admin/centers/new" class="text-light">Add new item</a>
-  </button>
-  <h2>
-    <span *ngIf="createMode; else updateText">Create</span
-    ><ng-template #updateText>Update</ng-template>
+<main class="main-content">
+  <h2 class="header">
+    <span *ngIf="createMode; else updateText">Create center</span
+    ><ng-template #updateText>Update center</ng-template>
   </h2>
-  <form #detailForm="ngForm" (ngSubmit)="detailForm.form.valid && onSubmit()">
-    <div class="form-control">
-      <label for="">Name</label>
-      <input
-        type="text"
-        #name="ngModel"
-        [(ngModel)]="item.name"
-        name="name"
-        required
-      />
-      <div *ngIf="detailForm.submitted && name.invalid" class="error">
-        Name is invalid
+  <a *ngIf="!createMode" href="admin/centers/new" class="btn">Add new item</a>
+
+  <!-- form -->
+  <form
+    ngNativeValidate
+    #detailForm="ngForm"
+    (ngSubmit)="detailForm.form.valid && onSubmit()"
+  >
+    <div class="form-control-wrapper">
+      <div class="form-control">
+        <label for="name">Name</label>
+        <input
+          id="name"
+          type="text"
+          #name="ngModel"
+          [(ngModel)]="item.name"
+          name="name"
+          required
+        />
+      </div>
+      <div *ngIf="name.invalid && (name.touched || name.dirty)" class="error">
+        <div *ngIf="name.errors?.required" class="alert alert-danger">
+          Name is required
+        </div>
       </div>
     </div>
+
+    <div class="form-control-wrapper">
+      <div class="form-control">
+        <label for="address">Address</label>
+        <input
+          id="address"
+          type="text"
+          #address="ngModel"
+          [(ngModel)]="item.address"
+          name="address"
+          required
+        />
+      </div>
+      <div
+        *ngIf="address.invalid && (address.touched || address.dirty)"
+        class="error"
+      >
+        <div *ngIf="address.errors?.required" class="alert alert-danger">
+          Address is required
+        </div>
+      </div>
+    </div>
+
+    <div class="form-control-wrapper">
+      <div class="form-control">
+        <label for="category-id">Category</label>
+        <select
+          id="category-id"
+          [(ngModel)]="item.categoryId"
+          #categoryId="ngModel"
+          name="category-id"
+          required
+        >
+          <option *ngFor="let category of categories" [ngValue]="category.id">
+            {{ category.name }}
+          </option>
+        </select>
+      </div>
+      <div
+        *ngIf="categoryId.invalid && (categoryId.touched || categoryId.dirty)"
+        class="error"
+      >
+        <div *ngIf="categoryId.errors?.required" class="alert alert-danger">
+          Category is required
+        </div>
+      </div>
+    </div>
+
+    <div class="form-control-wrapper">
+      <div class="form-control">
+        <label for="">Size range</label>
+        <input
+          id="size-min"
+          type="number"
+          name="size-min"
+          #sizeMin="ngModel"
+          [(ngModel)]="item.sizeMin"
+          required
+          placeholder="size min"
+        />
+        <input
+          id="size-max"
+          type="number"
+          name="size-max"
+          #sizeMax="ngModel"
+          [(ngModel)]="item.sizeMax"
+          required
+          placeholder="size max"
+        />
+      </div>
+      <div
+        *ngIf="
+          (sizeMin.invalid && (sizeMin.touched || sizeMin.dirty)) ||
+          (sizeMax.invalid && (sizeMax.touched || sizeMax.dirty))
+        "
+        class="error"
+      >
+        <div
+          *ngIf="sizeMin.errors?.required || sizeMax.errors?.required"
+          class="alert alert-danger"
+        >
+          Size min and max is required
+        </div>
+      </div>
+    </div>
+
+    <div class="form-control textarea-control">
+      <label for="description">Description</label>
+      <textarea
+        id="description"
+        name="description"
+        [(ngModel)]="item.description"
+      ></textarea>
+    </div>
+
+    <div class="form-control">
+      <label for="image-file">Select file</label>
+      <input
+        id="image-file"
+        type="file"
+        name="image-file"
+        (change)="handleImageFileChange($event)"
+        required
+      />
+    </div>
+
+    <div class="form-control">
+      <label>Ảnh hiện tại: </label
+      ><img
+        *ngIf="!createMode && item.imageString"
+        [src]="base64Prefix + item.imageString"
+        alt="logo of the center"
+        width="80"
+      />
+    </div>
+
+    <div class="form-control">
+      <label for="">Enabled</label>
+      <input type="checkbox" [(ngModel)]="item.enabled" name="enabled" />
+    </div>
+
     <div class="form-control">
       <label for="">created date</label>
       <input
@@ -38,81 +168,20 @@
         name="modified-date"
       />
     </div>
-    <div class="form-control">
-      <label for="">Enabled</label>
-      <input type="checkbox" [(ngModel)]="item.enabled" name="enabled" />
-    </div>
 
-    <div class="form-control">
-      <label for="">Address</label>
-      <input type="type" [(ngModel)]="item.address" name="address" required />
-    </div>
-
-    <div class="form-control">
-      <label for="">Category</label>
-      <select
-        [(ngModel)]="item.categoryId"
-        #categoryId="ngModel"
-        name="category-id"
-        required
-      >
-        <option *ngFor="let category of categories" [ngValue]="category.id">
-          {{ category.name }}
-        </option>
-      </select>
-      <div *ngIf="detailForm.submitted && categoryId.invalid" class="error">
-        category is required
-      </div>
-    </div>
-
-    <div class="form-control">
-      <label for="">Size range</label>
-      <input
-        type="number"
-        name="size-min"
-        #sizeMin="ngModel"
-        [(ngModel)]="item.sizeMin"
-        required
-      />
-      <input
-        type="number"
-        name="size-max"
-        #sizeMax="ngModel"
-        [(ngModel)]="item.sizeMax"
-        required
-      />
-      <div *ngIf="detailForm.submitted && (sizeMin.invalid || sizeMax.invalid)">
-        Size range is required
-      </div>
-    </div>
-
-    <div class="form-control my-5">
-      <label for="">Description</label>
-      <textarea name="description" [(ngModel)]="item.description"></textarea>
-    </div>
-
-    <div class="form-control">
-      <label for="">Select file</label>
-      <input
-        type="file"
-        name="image-file"
-        (change)="handleImageFileChange($event)"
-      />
-    </div>
-
-    <img
-      *ngIf="!createMode && item.imageString"
-      [src]="base64Prefix + item.imageString"
-      alt="logo of the center"
-      width="40"
-    />
-
-    <button>Submit</button>
+    <button [disabled]="detailForm.invalid" class="btn btn-submit">
+      Submit
+    </button>
   </form>
+
+  <div class="btns">
+    <a href="admin/centers/" class="btn btn-gray btn-left">To list page</a>
+    <button type="button" class="btn btn-gray" (click)="back()">Back</button>
+  </div>
 
   <button
     type="button"
-    class="btn btn-success"
+    class="btn btn-show-ratings"
     *ngIf="!showRatingSection"
     (click)="handleShowRatingSection()"
   >
@@ -122,22 +191,23 @@
   <section class="ratings" *ngIf="showRatingSection">
     <button
       type="button"
-      class="btn btn-success"
+      class="btn btn-hide-ratings"
       (click)="handleHideRatingSection()"
     >
       Hide ratings
     </button>
 
-    <div class="list container">
+    <div class="list-container">
       <div class="page-info">
         Total items: [<strong>{{ totalItems }}</strong
         >]
       </div>
 
-      <table id="" class="">
+      <table class="table">
         <thead>
           <th>id</th>
           <th>rate</th>
+          <th class="column-comment">comment</th>
           <th>enabled</th>
           <th>created date</th>
           <th>modified date</th>
@@ -156,6 +226,7 @@
           >
             <td>{{ rating.id }}</td>
             <td>{{ rating.rate }}</td>
+            <td class="column-comment">{{ rating.comment }}</td>
             <td>{{ rating.enabled }}</td>
             <td>{{ rating.createdDate }}</td>
             <td>{{ rating.modifiedDate }}</td>
@@ -188,11 +259,4 @@
       ></app-delete-confirm-modal>
     </div>
   </section>
-
-  <div class="container my-5">
-    <button type="button" class="btn btn-success mr-5">
-      <a href="admin/centers/" class="text-light">To list page</a>
-    </button>
-    <button type="button" class="btn btn-dark" (click)="back()">Back</button>
-  </div>
-</div>
+</main>

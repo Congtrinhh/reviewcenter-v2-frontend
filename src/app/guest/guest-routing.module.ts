@@ -1,25 +1,28 @@
+import { CenterDetailGuestComponent } from './center-detail-guest/center-detail-guest.component';
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
+import { GuestComponent } from './guest/guest.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { RouterModule, Routes } from '@angular/router';
-import { ProfileComponent } from './profile/profile.component';
-import { RegisterComponent } from './register/register.component';
 
-// const routes: Routes = [
-//   { path: 'home', component: GuestComponent },
-//   { path: 'login', component: LoginComponent },
-//   { path: 'register', component: RegisterComponent },
-//   { path: 'profile', component: ProfileComponent },
-//   { path: 'user', component: BoardUserComponent },
-//   { path: 'mod', component: BoardModeratorComponent },
-//   { path: 'admin', component: BoardAdminComponent },
-//   { path: '', redirectTo: 'home', pathMatch: 'full' },
-// ];
+const routes: Routes = [
+  {
+    path: '',
+    component: GuestComponent,
+    children: [
+      { path: 'centers/:slug', component: CenterDetailGuestComponent },
+      { path: '', component: HomeComponent },
+      { path: 'home', redirectTo: '/', pathMatch: 'full' },
+    ],
+  },
+  { path: 'login', component: LoginComponent },
+];
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule],
-  // imports: [CommonModule, RouterModule.forChild(routes)],
+  imports: [CommonModule, RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
 export class GuestRoutingModule {}

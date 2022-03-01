@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { UserInfo } from 'src/app/guest/_models/user-info';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
@@ -15,19 +16,18 @@ export class LoginAdminComponent implements OnInit {
 
   isLoggedIn: boolean = false;
   isLoginFailed: boolean = false;
-  currentUser: any;
+  currentUser!: UserInfo;
 
   constructor(
     private loginService: LoginService,
-    private tokenStorage: TokenStorageService
+    private tokenStorage: TokenStorageService,
+    private _location: Location
   ) {}
 
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.currentUser = this.tokenStorage.getUser();
-    } else {
-      this.errorMessage = 'please login';
     }
   }
 
@@ -46,9 +46,13 @@ export class LoginAdminComponent implements OnInit {
         this.login(data.user);
       },
       (err) => {
-        this.errorMessage = err.error.message;
+        this.errorMessage = `login failed, error: ${err.error.message}`;
         this.isLoginFailed = true;
       }
     );
+  }
+
+  back() {
+    this._location.back();
   }
 }

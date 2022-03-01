@@ -1,29 +1,62 @@
-.ng-valid[required],
-.ng-valid.required {
-  border-left: 5px solid #42a948; /* green */
-}
+$max-width: 600px;
 
-.ng-invalid:not(form) {
-  border-left: 5px solid #a94442; /* red */
-}
+.main-content {
+  padding: 30px 72px;
 
-.alert div {
-  background-color: #fed3d3;
-  color: #820000;
-  padding: 1rem;
-  margin-bottom: 1rem;
-}
+  .header {
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 34px;
+  }
 
-.form-group {
-  margin-bottom: 1rem;
-}
+  form {
+    margin-top: 90px;
+    .form-control {
+      width: $max-width;
+      margin-bottom: 2rem;
+      height: 40px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
 
-label {
-  display: block;
-  margin-bottom: 0.5rem;
-}
+      label {
+        min-width: 160px;
+      }
+      input[type="text"],
+      input[type="password"],
+      input[type="email"],
+      input[type="number"] {
+        flex: 1;
+        height: 100%;
+        padding-left: 12px;
 
-select {
-  width: 100%;
-  padding: 0.5rem;
+        border-radius: 4px;
+        border: 1px solid #999;
+      }
+      select {
+        height: 100%;
+      }
+    }
+
+    .btn-submit {
+      margin-top: 24px;
+      margin-bottom: 120px;
+    }
+
+    .role-selected-message {
+      margin-bottom: 24px;
+    }
+  }
+
+  .btns {
+    .btn-left {
+      margin-right: 90px;
+    }
+  }
+
+  .alert {
+    padding: 0.5rem 0.5rem;
+    width: $max-width;
+    margin-bottom: 2rem;
+  }
 }

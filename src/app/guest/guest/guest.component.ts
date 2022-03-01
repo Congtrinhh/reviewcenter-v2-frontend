@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/admin/_models/user.model';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
 
 @Component({
@@ -7,9 +8,8 @@ import { TokenStorageService } from 'src/app/_services/token-storage.service';
   styleUrls: ['./guest.component.scss'],
 })
 export class GuestComponent implements OnInit {
-  private roles: string[] = [];
   isLoggedIn = false;
-  username: string = '';
+  user!: User;
 
   constructor(private tokenStorageService: TokenStorageService) {}
 
@@ -17,10 +17,7 @@ export class GuestComponent implements OnInit {
     this.isLoggedIn = !!this.tokenStorageService.getToken(); // if token exists, then true
 
     if (this.isLoggedIn) {
-      const user = this.tokenStorageService.getUser();
-      this.roles = user.roles;
-
-      this.username = user.displayName;
+      this.user = this.tokenStorageService.getUser();
     }
   }
 

@@ -1,3 +1,4 @@
+import { AppConstants } from 'src/app/guest/_common/app.constants';
 import { Component, OnInit } from '@angular/core';
 import { Center } from 'src/app/admin/_models/center.model';
 import { BaseService } from '../_services/base.service';
@@ -18,6 +19,8 @@ export class SearchComponent implements OnInit {
   currentSearchingKey = ''; // for reset
 
   message = ''; // displayed when search key don't match any items
+
+  base64Prefix = AppConstants.BASE64_IMG_PREFIX;
 
   constructor(private baseService: BaseService) {}
 

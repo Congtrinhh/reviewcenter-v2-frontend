@@ -1,19 +1,23 @@
-<div class="detail container">
-  <button type="button" class="btn btn-success">
-    <a href="admin/categories/new" class="text-light">Add new item</a>
-  </button>
-  <h2>
-    <span *ngIf="createMode; else updateText">Create</span
-    ><ng-template #updateText>Update</ng-template>
+<main class="main-content">
+  <h2 class="header">
+    <span *ngIf="createMode; else updateText">Create category</span
+    ><ng-template #updateText>Update category</ng-template>
   </h2>
+  <a *ngIf="!createMode" href="admin/categories/new" class="btn"
+    >Add new item</a
+  >
+
+  <!-- form -->
   <form #detailForm="ngForm" (ngSubmit)="detailForm.form.valid && onSubmit()">
     <div class="form-control">
-      <label for="">Name</label>
+      <label for="name">Name</label>
       <input
+        id="name"
         type="text"
         #name="ngModel"
         [(ngModel)]="item.name"
         name="name"
+        placeholder="at least 6 character"
         required
       />
       <div *ngIf="detailForm.submitted && name.invalid" class="error">
@@ -21,7 +25,7 @@
       </div>
     </div>
     <div class="form-control">
-      <label for="">created date</label>
+      <label for="">Created date</label>
       <input
         readonly
         type="text"
@@ -30,7 +34,7 @@
       />
     </div>
     <div class="form-control">
-      <label for="">modified date</label>
+      <label for="">Modified date</label>
       <input
         readonly
         type="text"
@@ -39,17 +43,22 @@
       />
     </div>
     <div class="form-control">
-      <label for="">Enabled</label>
-      <input type="checkbox" [(ngModel)]="item.enabled" name="enabled" />
+      <label for="enabled">Enabled</label>
+      <input
+        id="enabled"
+        type="checkbox"
+        [(ngModel)]="item.enabled"
+        name="enabled"
+      />
     </div>
 
-    <button>Submit</button>
+    <button [disabled]="detailForm.invalid" class="btn btn-submit">
+      Submit
+    </button>
   </form>
 
-  <div class="container my-5">
-    <button type="button" class="btn btn-success mr-5">
-      <a href="admin/categories/" class="text-light">To list page</a>
-    </button>
-    <button type="button" class="btn btn-dark" (click)="back()">Back</button>
+  <div class="btns">
+    <a href="admin/categories/" class="btn btn-gray btn-left">To list page</a>
+    <button type="button" class="btn btn-gray" (click)="back()">Back</button>
   </div>
-</div>
+</main>

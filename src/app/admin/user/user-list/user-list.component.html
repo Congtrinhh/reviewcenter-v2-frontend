@@ -1,71 +1,133 @@
-<div class="list container">
-  <!-- page size select -->
-  <div class="page-sizes">
-    <span>Items per page</span>
-    <select (change)="handlePageSizeChange()" [(ngModel)]="itemsPerPage">
-      <option *ngFor="let size of pageSizes" [ngValue]="size">
-        {{ size }}
-      </option>
-    </select>
-  </div>
-  <div class="page-info">
-    Total items: [<strong>{{ totalItems }}</strong
-    >]
-  </div>
+<main class="main-content">
+  <h2 class="header">User list</h2>
 
-  <!-- table -->
-  <table id="" class="">
-    <thead>
-      <th>id</th>
-      <th>email</th>
-      <th>display name</th>
-      <th>roles</th>
-      <th>enabled</th>
-      <th>created date</th>
-      <th>modified date</th>
-    </thead>
-    <tbody>
-      <tr
-        *ngFor="
-          let item of items
-            | paginate
-              : {
-                  itemsPerPage: itemsPerPage,
-                  currentPage: currentPage,
-                  totalItems: totalItems
-                }
-        "
-      >
-        <td>{{ item.id }}</td>
-        <td>{{ item.email }}</td>
-        <td>{{ item.displayName }}</td>
-        <td>{{ item.roleNames }}</td>
-        <td>{{ item.enabled }}</td>
-        <td>{{ item.createdDate }}</td>
-        <td>{{ item.modifiedDate }}</td>
-        <td>
-          <a [routerLink]="item.id">Detail</a>
-          <button type="button" (click)="handleSelectItemToDelete(item.id)">
-            Delete
+  <div class="everything-else">
+    <div class="top">
+      <a routerLink="new" class="btn">Add new item</a>
+    </div>
+
+    <div class="bottom">
+      <div class="search-container">
+        <div class="sub-header">Tìm kiếm</div>
+        <!-- form 1-->
+        <form #searchForm="ngForm" class="search-form">
+          <div class="form-control">
+            <label for="keyword">Keyword</label>
+            <input
+              id="keyword"
+              type="text"
+              name="keyword"
+              [(ngModel)]="searchTerms.keyword"
+              placeholder="Email or display name..."
+            />
+          </div>
+          <div class="form-control">
+            <label for="enabled">Enabled</label>
+            <select
+              id="enabled"
+              name="enabled-select"
+              [(ngModel)]="searchTerms.enabled"
+              value=""
+            >
+              <option value="">All</option>
+              <option value="true">Enabled</option>
+              <option value="false">Disabled</option>
+            </select>
+          </div>
+          <button (click)="onSearchButtonClick()" class="btn btn-search">
+            Tìm
           </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+          <button (click)="resetSearchForm()" class="btn btn-gray">
+            Reset
+          </button>
+        </form>
 
-  <!-- pagination bar -->
-  <div class="pagination-bar">
-    <pagination-controls
-      previousLabel="Prev"
-      nextLabel="Next"
-      [responsive]="true"
-      (pageChange)="handlePageChange($event)"
-    ></pagination-controls>
+        <!-- fomr 2 -->
+        <div class="page-sizes form-control">
+          <label for="item-per-page">Item/trang</label>
+          <select
+            id="item-per-page"
+            (change)="handlePageSizeChange()"
+            [(ngModel)]="itemsPerPage"
+          >
+            <option *ngFor="let size of pageSizes" [ngValue]="size">
+              {{ size }}
+            </option>
+          </select>
+        </div>
+
+        <div class="total-items">
+          Tổng số item [<strong>{{ totalItems }}</strong
+          >]
+        </div>
+      </div>
+      <div class="list-container">
+        <div class="sub-header">Danh sách</div>
+
+        <table class="table">
+          <thead>
+            <th>id</th>
+            <th>email</th>
+            <th>display name</th>
+            <th>roles</th>
+            <th>enabled</th>
+            <th>created date</th>
+            <th>modified date</th>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="
+                let item of items
+                  | paginate
+                    : {
+                        itemsPerPage: itemsPerPage,
+                        currentPage: currentPage,
+                        totalItems: totalItems
+                      }
+              "
+            >
+              <td>{{ item.id }}</td>
+              <td>{{ item.email }}</td>
+              <td>{{ item.displayName }}</td>
+              <td>{{ item.roleNames }}</td>
+              <td>{{ item.enabled }}</td>
+              <td>{{ item.createdDate }}</td>
+              <td>{{ item.modifiedDate }}</td>
+              <td class="column-action">
+                <a [routerLink]="item.id" class="link-detail">Detail</a>
+                <span
+                  (click)="handleSelectItemToDelete(item.id)"
+                  class="btn-delete"
+                >
+                  Delete
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- pagination -->
+        <div class="pagination-bar">
+          <pagination-controls
+            previousLabel="Prev"
+            nextLabel="Next"
+            [responsive]="true"
+            (pageChange)="handlePageChange($event)"
+          ></pagination-controls>
+        </div>
+
+        <!-- modal -->
+        <app-delete-confirm-modal
+          [show]="showConfirmDeleteView"
+          (confirmToDeleteEvent)="handleDelete()"
+          (cancelToDeleteEvent)="hideConfirmDeleteView()"
+        ></app-delete-confirm-modal>
+
+        <div *ngIf="errorMessage">{{ errorMessage }}</div>
+        <button type="button" class="btn btn-gray" (click)="back()">
+          Về trang trước
+        </button>
+      </div>
+    </div>
   </div>
-
-  <app-delete-confirm-modal
-    [show]="showConfirmDeleteView"
-    (confirmToDeleteEvent)="handleDelete()"
-    (cancelToDeleteEvent)="hideConfirmDeleteView()"
-  ></app-delete-confirm-modal>
-</div>
+</main>

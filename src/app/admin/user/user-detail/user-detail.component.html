@@ -1,137 +1,171 @@
-<div class="detail container">
-  <button type="button" class="btn btn-success">
-    <a href="admin/users/new" class="text-light">Add new item</a>
-  </button>
-
-  <h2>
-    <span *ngIf="createMode; else updateText">Create</span
-    ><ng-template #updateText>Update</ng-template>
+<main class="main-content">
+  <h2 class="header">
+    <span *ngIf="createMode; else updateText">Create user</span
+    ><ng-template #updateText>Update user</ng-template>
   </h2>
+  <a *ngIf="!createMode" routerLink="/admin/users/new" class="btn"
+    >Add new item</a
+  >
 
-  <form #detailForm="ngForm" (ngSubmit)="detailForm.form.valid && onSubmit()">
-    <div class="form-control">
-      <label for="">Name</label>
-      <input
-        type="text"
-        #name="ngModel"
-        [(ngModel)]="item.displayName"
-        name="name"
-        required
-      />
-      <div *ngIf="detailForm.submitted && name.invalid" class="error">
-        Name is invalid
-      </div>
-    </div>
-
-    <div class="form-control">
-      <label for="">Email</label>
-      <input
-        type="text"
-        #email="ngModel"
-        name="email"
-        [(ngModel)]="item.email"
-        email
-        required
-      />
-      <div *ngIf="detailForm.submitted && email.invalid" class="error">
-        Email is invalid
-      </div>
-    </div>
-
-    <div class="form-control my-5">
-      <label for="">Password</label>
-      <div *ngIf="createMode; else passwordInputForUpdating">
-        <input
-          type="text"
-          #password="ngModel"
-          name="password"
-          [(ngModel)]="item.password"
-          required
-          minlength="6"
-        />
-      </div>
-      <ng-template #passwordInputForUpdating>
-        <input
-          type="text"
-          #password="ngModel"
-          name="password"
-          [(ngModel)]="item.password"
-        />
-        <span
-          >If you want to update password, enter new password. If you don't
-          want, leave it blank</span
-        >
-        <div *ngIf="detailForm.submitted && password?.invalid" class="error">
-          Password is invalid
-        </div>
-      </ng-template>
-    </div>
-
-    <div class="form-control">
-      <label for="">Avatar url</label>
-      <input
-        type="text"
-        #avatarUrl="ngModel"
-        [(ngModel)]="item.avatarUrl"
-        name="avatar-url"
-        appUrlValidator
-      />
-      <div
-        *ngIf="detailForm.submitted && avatarUrl.errors?.urlInvalid"
-        class="error"
-      >
-        Avatar url is invalid
-      </div>
-    </div>
-
-    <div class="form-control my-5">
+  <!-- form -->
+  <form [formGroup]="form" (ngSubmit)="handleSubmit()" *ngIf="form">
+    <div class="control">
+      <p>Select roles</p>
       <div *ngFor="let role of roles">
         <input
           type="checkbox"
-          name="role-ids"
-          [value]="role.id"
-          (change)="handleRoleChange($event)"
+          name="role-id"
+          (change)="handleRoleCheckboxClicked($event, role.id)"
+          [checked]="roleIds?.value.includes(role.id)"
         />
-        {{ role.name }}
+        {{ role.name }} <br />
+      </div>
+    </div>
+
+    <div class="role-selected-message" formArrayName="roleIds">
+      <div *ngIf="formControls.roleIds.invalid" class="alert alert-danger">
+        <div *ngIf="formControls.roleIds.errors?.required">
+          Choose at least 1 role
+        </div>
+      </div>
+      <p>{{ roleIds.controls.length }} roles selected</p>
+    </div>
+
+    <div class="form-control-wrapper">
+      <div class="form-control">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="text"
+          formControlName="email"
+          placeholder="email"
+        />
+      </div>
+      <div
+        *ngIf="
+          formControls.email.invalid &&
+          (formControls.email.dirty || formControls.email.touched)
+        "
+        class="alert alert-danger"
+      >
+        <div *ngIf="formControls.email.errors?.required">Email is required</div>
+        <div *ngIf="formControls.email.errors?.email">Must be email</div>
+      </div>
+    </div>
+
+    <div class="form-control-wrapper">
+      <div class="form-control">
+        <label for="display-name">Display name</label>
+        <input
+          id="display-name"
+          type="text"
+          formControlName="displayName"
+          placeholder="display name"
+        />
+      </div>
+      <div
+        *ngIf="
+          formControls.displayName.invalid &&
+          (formControls.displayName.dirty || formControls.displayName.touched)
+        "
+        class="alert alert-danger"
+      >
+        <div *ngIf="formControls.displayName.errors?.required">
+          Display name is required
+        </div>
+      </div>
+    </div>
+
+    <div class="password-wrapper">
+      <div class="form-control-wrapper" *ngIf="!createMode">
+        <div class="form-control">
+          <label for="">Password</label>
+          <input
+            type="password"
+            formControlName="password"
+            placeholder="password"
+          />
+          <span
+            >Enter new password if you want to update it, else leave blank</span
+          >
+        </div>
+      </div>
+
+      <div class="form-control-wrapper" *ngIf="createMode">
+        <div class="form-control">
+          <label for="">Password</label>
+          <input
+            type="password"
+            formControlName="password"
+            placeholder="password"
+          />
+        </div>
+        <div
+          *ngIf="
+            formControls.password.invalid &&
+            (formControls.password.dirty || formControls.password.touched)
+          "
+          class="alert alert-danger"
+        >
+          <div *ngIf="formControls.password.errors?.required">
+            Password is required
+          </div>
+          <div *ngIf="formControls.password.errors?.minlength">
+            Password at least 6 characters
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="form-control">
-      <label for="">Enabled</label>
-      <input type="checkbox" [(ngModel)]="item.enabled" name="enabled" />
-    </div>
-
-    <div class="form-control">
-      <label for="">Provider</label>
-      <input readonly type="text" [ngModel]="item.provider" name="provider" />
-    </div>
-
-    <div class="form-control">
-      <label for="">created date</label>
+      <label for="avatar-url">Avatar url</label>
       <input
-        readonly
+        id="avatar-url"
         type="text"
-        [ngModel]="item.createdDate"
-        name="created-date"
-      />
-    </div>
-    <div class="form-control">
-      <label for="">modified date</label>
-      <input
-        readonly
-        type="text"
-        [ngModel]="item.modifiedDate"
-        name="modified-date"
+        formControlName="avatarUrl"
+        placeholder="avatarUrl"
       />
     </div>
 
-    <button>Submit</button>
+    <div class="form-control">
+      <label for="enabled">Enabled</label>
+      <input id="enabled" type="checkbox" formControlName="enabled" />
+    </div>
+
+    <div class="form-control">
+      <label>Provider</label>
+      <input
+        type="text"
+        formControlName="provider"
+        placeholder="provider"
+        readonly
+      />
+    </div>
+
+    <div class="form-control">
+      <label>CreatedDate</label>
+      <input
+        type="text"
+        formControlName="createdDate"
+        placeholder="createdDate"
+        readonly
+      />
+    </div>
+
+    <div class="form-control">
+      <label>ModifiedDate</label>
+      <input
+        type="text"
+        formControlName="modifiedDate"
+        placeholder="modifiedDate"
+        readonly
+      />
+    </div>
+    <button [disabled]="form.invalid" class="btn btn-submit">Submit</button>
   </form>
 
-  <div class="container my-5">
-    <button type="button" class="btn btn-success mr-5">
-      <a href="admin/users/" class="text-light">To list page</a>
-    </button>
-    <button type="button" class="btn btn-dark" (click)="back()">Back</button>
+  <div class="btns">
+    <a routerLink="/admin/users/" class="btn btn-gray btn-left">To list page</a>
+    <button type="button" class="btn btn-gray" (click)="back()">Back</button>
   </div>
-</div>
+</main>

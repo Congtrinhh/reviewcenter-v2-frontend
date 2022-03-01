@@ -1,22 +1,38 @@
-<h2>Search</h2>
-<div class="container">
+<div class="search-container">
   <input
     name="searching-key"
     type="text"
     #searchingKey
     (input)="handleSearch(searchingKey.value)"
     [(ngModel)]="currentSearchingKey"
+    placeholder="Gõ gì đó..."
+    [ngClass]="items.length > 0 ? 'transform' : ''"
   />
-  <button type="reset" (click)="clearSearchingKey()">cancel</button>
+  <button
+    *ngIf="searchingKey.value"
+    (click)="clearSearchingKey()"
+    class="btn btn-gray"
+  >
+    &times;
+  </button>
 
   <section class="result">
     <ul *ngIf="items.length > 0" class="search-result">
       <li *ngFor="let item of items">
-        {{ item.name }}
+        <a [routerLink]="['/centers', item.slug]">
+          <img [src]="base64Prefix + item.imageString" />
+          <div class="info">
+            <p class="name">{{ item.name }}</p>
+            <span class="category-name badge badge-dark">{{
+              item.categoryName
+            }}</span>
+            <span class="address">{{ item.address }}</span>
+          </div>
+        </a>
       </li>
     </ul>
-    <ul *ngIf="items.length == 0 && message">
-      <li>{{ message }}</li>
+    <ul *ngIf="items.length == 0 && message" class="search-result">
+      <li style="text-align: center; height: auto">{{ message }}</li>
     </ul>
   </section>
 </div>

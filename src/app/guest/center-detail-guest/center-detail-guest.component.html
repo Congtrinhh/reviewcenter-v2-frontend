@@ -1,0 +1,128 @@
+<main class="main-content">
+  <div class="container">
+    <section class="breadcrumb-container">
+      <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">
+            {{ center.name }}
+          </li>
+        </ol>
+      </nav>
+    </section>
+
+    <section class="center">
+      <img
+        *ngIf="center.imageString"
+        [src]="base64Prefix + center.imageString"
+        alt="logo"
+        width="80"
+      />
+      <div class="info">
+        <h3 class="name">{{ center.name }}</h3>
+        <p class="category-name badge badge-dark">{{ center.categoryName }}</p>
+        <p class="size">Nhân sự:{{ center.sizeMin }} - {{ center.sizeMax }}</p>
+        <p class="address">{{ center.address }}</p>
+      </div>
+    </section>
+
+    <section class="rate">
+      <div class="average-point">
+        <span>Điểm review: </span
+        ><span
+          >{{
+            rate.averagePercentRate
+              ? ((rate.averagePercentRate * 5) / 100).toFixed(1)
+              : "0"
+          }}
+          <i class="fa-solid fa-star"></i
+        ></span>
+      </div>
+      <div class="total-review-times">
+        <span>Tổng số review: {{ rate.totalRateTimes }}</span>
+      </div>
+      <div class="detail-box">
+        <div class="detail-item" *ngFor="let info of rate.rateInfo">
+          <div class="title">
+            {{ info.rateNumber }} <i class="fa-solid fa-star"></i>
+          </div>
+          <div class="progressive-bar">
+            <div
+              class="real-bar"
+              [style.width]="getRatePercent(info) + '%'"
+            ></div>
+          </div>
+          <div class="percent-indicator">{{ getRatePercent(info) }}%</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="review-container">
+      <button class="btn" (click)="handleGiveARateClicked()">
+        Viết review
+      </button>
+
+      <app-review-box
+        [open]="isLoggedIn && openReviewBox"
+        [centerId]="center?.id"
+        (closeViewEvent)="closeReviewBox()"
+      ></app-review-box>
+    </section>
+
+    <section class="center-description">
+      <p class="title">Mô tả về trung tâm</p>
+      <p class="paragraph">{{ center.description }}</p>
+    </section>
+
+    <section class="comments">
+      <div class="title">Lượt review</div>
+      <div
+        *ngFor="
+          let comment of comments
+            | paginate
+              : {
+                  itemsPerPage: itemsPerPage,
+                  currentPage: currentPage,
+                  totalItems: totalItems
+                }
+        "
+        class="comment"
+      >
+        <div class="top">
+          <img
+            *ngIf="comment.avatarUrl"
+            [src]="comment.avatarUrl"
+            alt="avatar"
+          />
+          <div class="info">
+            <span class="name">{{ comment.displayName }}</span>
+            <span
+              [ngClass]="'review-points ' + 'review-' + comment.rate + '-star'"
+            >
+              <span class="stars">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+              </span>
+            </span>
+            <p class="para">{{ comment.comment }}</p>
+          </div>
+        </div>
+        <div class="bottom">
+          {{ comment.createdDate | date: "dd/MM/yyyy, h:mm a" }}
+        </div>
+      </div>
+
+      <div class="pagination-bar">
+        <pagination-controls
+          previousLabel="Prev"
+          nextLabel="Next"
+          [responsive]="true"
+          (pageChange)="handlePageChange($event)"
+        ></pagination-controls>
+      </div>
+    </section>
+  </div>
+</main>

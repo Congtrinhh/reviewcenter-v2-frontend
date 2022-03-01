@@ -1,54 +1,89 @@
-<app-search></app-search>
+<main class="main-content">
+  <div class="container">
+    <section class="search"><app-search></app-search></section>
 
-<section class="categories">
-  <h3>Categories</h3>
-  <ul>
-    <li
-      *ngFor="let category of categories"
-      (click)="handleCategoryNameClicked($event, category.id)"
-    >
-      {{ category.name }}
-    </li>
-  </ul>
-</section>
+    <section class="categories">
+      <h3>Loại trung tâm</h3>
+      <ul>
+        <li
+          [ngClass]="currentCategoryId == '-1' ? 'category-active' : ''"
+          (click)="handleGetAllCategoriesBtnClicked()"
+        >
+          Tất cả
+        </li>
+        <li
+          *ngFor="let category of categories"
+          (click)="handleCategoryNameClicked($event, category.id)"
+          [ngClass]="category.id == currentCategoryId ? 'category-active' : ''"
+        >
+          {{ category.name }}
+        </li>
+      </ul>
+    </section>
 
-<section class="centers">
-  <h2>Centers</h2>
-  <ul>
-    <li
-      *ngFor="
-        let center of centers
-          | paginate
-            : {
-                itemsPerPage: itemsPerPage,
-                currentPage: currentPage,
-                totalItems: totalItems
-              }
-      "
-    >
-      <div *ngIf="center.imageString" class="image">
-        <img
-          [src]="base64Prefix + center.imageString"
-          alt="logo of the center "
-          width="40"
-        />
+    <section class="centers">
+      <h3>Các trung tâm</h3>
+      <ul>
+        <li
+          *ngFor="
+            let center of centers
+              | paginate
+                : {
+                    itemsPerPage: itemsPerPage,
+                    currentPage: currentPage,
+                    totalItems: totalItems
+                  }
+          "
+        >
+          <a [routerLink]="['/centers', center.slug]">
+            <img [src]="base64Prefix + center.imageString" alt="avatar" />
+            <div class="info">
+              <div class="name">{{ center.name }}</div>
+
+              <div class="middle">
+                <span class="size"
+                  >Nhân sự: {{ center.sizeMin }} - {{ center.sizeMax }}</span
+                >
+                <span class="category-name badge badge-primary">{{
+                  center.categoryName
+                }}</span>
+              </div>
+
+              <div class="address">Địa chỉ: {{ center.address }}</div>
+            </div>
+          </a>
+        </li>
+      </ul>
+
+      <div class="pagination-bar">
+        <pagination-controls
+          previousLabel="Prev"
+          nextLabel="Next"
+          [responsive]="true"
+          (pageChange)="handlePageChange($event)"
+        ></pagination-controls>
       </div>
-      <div class="name">{{ center.name }}</div>
-      <div class="address">{{ center.address }}</div>
-      <div class="size">{{ center.sizeMin }} - {{ center.sizeMax }}</div>
-      <div class="name">{{ center.address }}</div>
-      <div class="category-name" *ngFor="let category of categories">
-        <div *ngIf="center.categoryId == category.id">{{ category.name }}</div>
-      </div>
-    </li>
-  </ul>
+    </section>
 
-  <div class="pagination-bar">
-    <pagination-controls
-      previousLabel="Prev"
-      nextLabel="Next"
-      [responsive]="true"
-      (pageChange)="handlePageChange($event)"
-    ></pagination-controls>
+    <section class="today-news">
+      <h3>Hôm nay</h3>
+      <ul>
+        <li *ngFor="let rating of todayRatings">
+          <div class="content">
+            <div class="user-info">
+              <img [src]="rating.avatarUrl" alt="avatar of the user" />
+              <span>{{ rating.userName }}</span>
+            </div>
+            <div class="text-detail">
+              &nbsp;đã đánh giá trung tâm&nbsp;
+              <b>{{ rating.centerName }}</b>
+            </div>
+          </div>
+          <a class="link" [routerLink]="['/centers', rating.centerSlug]"
+            >Chi tiết</a
+          >
+        </li>
+      </ul>
+    </section>
   </div>
-</section>
+</main>

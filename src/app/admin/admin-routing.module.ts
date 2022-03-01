@@ -1,5 +1,5 @@
+import { AuthGuard } from './../_helpers/auth.guard';
 import { LoginAdminComponent } from './login-admin/login-admin.component';
-import { UserDetailReactiveFormComponent } from './user-detail-reactive-form/user-detail-reactive-form.component';
 import { UserListComponent } from './user/user-list/user-list.component';
 import { CenterDetailComponent } from './center/center-detail/center-detail.component';
 import { CenterListComponent } from './center/center-list/center-list.component';
@@ -11,13 +11,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminComponent } from './admin/admin.component';
+import { UserDetailComponent } from './user/user-detail/user-detail.component';
 
 const routes: Routes = [
   { path: 'admin-login', component: LoginAdminComponent },
   {
     path: 'admin',
     component: AdminComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     children: [
       { path: 'categories', component: CategoryListComponent },
       { path: 'categories/new', component: CategoryDetailComponent },
@@ -29,8 +30,8 @@ const routes: Routes = [
       { path: 'centers/new', component: CenterDetailComponent },
       { path: 'centers/:id', component: CenterDetailComponent },
       { path: 'users', component: UserListComponent },
-      { path: 'users/new', component: UserDetailReactiveFormComponent },
-      { path: 'users/:id', component: UserDetailReactiveFormComponent },
+      { path: 'users/new', component: UserDetailComponent },
+      { path: 'users/:id', component: UserDetailComponent },
       // { path: '', component: DashboardComponent },
     ],
   },

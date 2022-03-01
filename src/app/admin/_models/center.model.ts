@@ -11,4 +11,5 @@ export class Center {
   modifiedDate?: string;
   imageString?: string;
   slug?: string;
+  categoryName?: string;
 }

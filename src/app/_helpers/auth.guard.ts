@@ -31,21 +31,10 @@ export class AuthGuard implements CanActivate {
     | boolean
     | UrlTree {
     if (state.url.startsWith('/admin')) {
-      console.log('want admin');
       if (this.hasRequiredRole(ADMIN_ROLES)) {
         return true;
-      } else {
-        this.router.parseUrl('/admin-login');
-        return false;
       }
-    } else if (state.url.startsWith('/review')) {
-      console.log('want user');
-      if (this.hasRequiredRole(USER_ROLES)) {
-        return true;
-      } else {
-        this.router.navigate(['/login']);
-        return false;
-      }
+      return this.router.parseUrl('/admin-login');
     }
 
     return true;

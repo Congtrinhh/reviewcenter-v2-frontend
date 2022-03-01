@@ -1,18 +1,11 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
 import { AppConstants } from '../_common/app.constants';
 import { UserInfo } from '../_models/user-info';
-import { AuthService } from '../_services/auth.service';
 import { UserService } from '../_services/user.service';
 
-/**
- * Today's task:
- * separate this component into 2 login components,
- * make sure they work the same as this component,
- * implement your own way, so that it can be easily
- * maintained in the long run.
- */
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -30,7 +23,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private tokenStorageService: TokenStorageService,
     private route: ActivatedRoute,
-    private userService: UserService
+    private userService: UserService,
+    private _location: Location
   ) {}
 
   ngOnInit(): void {
@@ -63,5 +57,9 @@ export class LoginComponent implements OnInit {
     this.isLoggedIn = true;
     this.currentUser = this.tokenStorageService.getUser();
     window.location.href = '';
+  }
+
+  back() {
+    this._location.back();
   }
 }
