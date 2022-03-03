@@ -64,3 +64,30 @@
     }
   }
 }
+
+// -------------------- RESPONSIVE -----------------------
+@media (max-width: 576px) {
+  .overlay {
+    .modal-content {
+      width: 90%;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .overlay {
+    .modal-content {
+      padding: 16px;
+    }
+  }
+  .modal-content {
+    .top {
+      margin-bottom: 20px;
+    }
+    .bottom {
+      .comment-control {
+        margin-top: 12px;
+      }
+    }
+  }
+}

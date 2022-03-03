@@ -152,29 +152,26 @@ section.comments {
     margin-bottom: 20px;
     .top {
       display: flex;
+      align-items: center;
+      gap: 10px;
 
       img {
         width: 48px;
         height: 48px;
         border-radius: 24px;
         object-fit: cover;
-        margin-right: 12px;
       }
 
-      .info {
-        .name {
-          margin-right: 16px;
-          font-weight: 500;
-        }
-
-        .para {
-          margin-top: 6px;
-          text-indent: 16px;
-        }
+      .name {
+        font-weight: 500;
       }
     }
+    .paragraph {
+      margin-top: 16px;
+      text-indent: 16px;
+    }
 
-    .bottom {
+    .time {
       color: #999;
       text-align: right;
       font-style: italic;
@@ -263,24 +260,10 @@ section.comments {
     .comment {
       .top {
         img {
-          width: 40px;
-          height: 40px;
-          border-radius: 20px;
+          width: 42px;
+          height: 42px;
+          border-radius: 21px;
           object-fit: cover;
-          margin-right: 12px;
-        }
-
-        .info {
-          .name {
-            margin-right: 16px;
-          }
-
-          .para {
-            margin-top: 6px;
-          }
-          > * {
-            display: block;
-          }
         }
       }
     }

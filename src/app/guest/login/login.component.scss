@@ -22,7 +22,6 @@
     ul {
       li {
         height: 54px;
-        width: 366px;
         margin-bottom: 32px;
         box-shadow: 0 1px 4px rgba(0, 0, 0, 0.16);
         border-radius: 4px;
@@ -65,4 +64,80 @@
 .error-message {
   color: red;
   text-align: left;
+}
+
+// -------------------- RESPONSIVE -----------------------
+@media (max-width: 768px) {
+}
+
+@media (max-width: 576px) {
+  .app {
+    padding: 0 20px;
+
+    .container {
+      width: unset;
+      padding: 40px 60px;
+      width: 100%;
+
+      h1 {
+        margin-bottom: 40px;
+      }
+
+      ul {
+        li {
+          margin-bottom: 22px;
+
+          a {
+            padding: 0 12px;
+
+            img {
+              width: 36px;
+              height: 36px;
+            }
+
+            span {
+              font-size: 16px;
+              margin-left: 16px;
+            }
+          }
+        }
+      }
+
+      .btns {
+        margin-top: 50px;
+        .btn {
+          padding: 8px 12px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 440px) {
+  .app {
+    padding: 0 10px;
+    .container {
+      padding: 40px 30px;
+      ul {
+        li {
+          margin-bottom: 22px;
+          a {
+            img {
+              width: 32px;
+              height: 32px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 360px) {
+  .app {
+    padding: 0 10px;
+    .container {
+      padding: 40px 16px;
+    }
+  }
 }

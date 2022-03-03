@@ -92,23 +92,21 @@
             [src]="comment.avatarUrl"
             alt="avatar"
           />
-          <div class="info">
-            <span class="name">{{ comment.displayName }}</span>
-            <span
-              [ngClass]="'review-points ' + 'review-' + comment.rate + '-star'"
-            >
-              <span class="stars">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-              </span>
+          <span class="name">{{ comment.displayName }}</span>
+          <span
+            [ngClass]="'review-points ' + 'review-' + comment.rate + '-star'"
+          >
+            <span class="stars">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
             </span>
-            <p class="para">{{ comment.comment }}</p>
-          </div>
+          </span>
         </div>
-        <div class="bottom">
+        <p class="paragraph">{{ comment.comment }}</p>
+        <div class="time">
           {{ comment.createdDate | date: "dd/MM/yyyy, h:mm a" }}
         </div>
       </div>
