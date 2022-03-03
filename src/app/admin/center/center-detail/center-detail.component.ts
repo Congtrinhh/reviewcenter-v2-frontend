@@ -64,7 +64,7 @@ export class CenterDetailComponent implements OnInit {
           this.item = data;
         },
         (error: any) => {
-          this.errorMessage = error.message;
+          this.errorMessage = error.error;
         }
       );
       this.retrieveCategory();
@@ -81,7 +81,7 @@ export class CenterDetailComponent implements OnInit {
             this.item = data;
           },
           (err: any) => {
-            this.errorMessage = err.message;
+            this.errorMessage = err.error;
           }
         );
     } else {
@@ -100,7 +100,7 @@ export class CenterDetailComponent implements OnInit {
             );
           },
           (err: any) => {
-            this.errorMessage = err.message;
+            this.errorMessage = err.error;
           }
         );
     }
@@ -137,7 +137,7 @@ export class CenterDetailComponent implements OnInit {
           this.retrieveRatings();
         },
         (error) => {
-          this.errorMessage = error.message;
+          this.errorMessage = error.error;
         }
       );
   }
@@ -170,7 +170,7 @@ export class CenterDetailComponent implements OnInit {
         this.ratings = data.ratings;
       },
       (error) => {
-        this.errorMessage = error.message;
+        this.errorMessage = error.error;
       }
     );
   }
@@ -191,7 +191,7 @@ export class CenterDetailComponent implements OnInit {
         this.categories = data.categories;
       },
       (error: any) => {
-        this.errorMessage = error.message;
+        this.errorMessage = error.error;
       }
     );
   }

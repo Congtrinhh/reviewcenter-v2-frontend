@@ -63,7 +63,7 @@ export class CategoryListComponent implements OnInit {
         this.retrieveItems(basePath, this.searchTerms);
       },
       (error) => {
-        this.errorMessage = error.message;
+        this.errorMessage = error.error;
       }
     );
   }
@@ -92,7 +92,7 @@ export class CategoryListComponent implements OnInit {
         this.items = data.categories;
       },
       (error) => {
-        this.errorMessage = error.message;
+        this.errorMessage = error.error;
       }
     );
   }

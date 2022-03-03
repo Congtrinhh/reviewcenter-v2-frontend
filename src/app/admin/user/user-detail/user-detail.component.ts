@@ -80,7 +80,7 @@ export class UserDetailComponent implements OnInit {
           // else, leave it blank
         },
         (error: any) => {
-          this.errorMessage = error.message;
+          this.errorMessage = error.error;
         }
       );
       this.baseService.getAll(roleBasePath, null).subscribe(
@@ -88,7 +88,7 @@ export class UserDetailComponent implements OnInit {
           this.roles = data.roles;
         },
         (error) => {
-          this.errorMessage = error.message;
+          this.errorMessage = error.error;
         }
       );
     }
@@ -105,7 +105,7 @@ export class UserDetailComponent implements OnInit {
         },
         (error) => {
           console.log(error);
-          this.errorMessage = error.error.message;
+          this.errorMessage = error.error;
         }
       );
     } else {
@@ -114,7 +114,7 @@ export class UserDetailComponent implements OnInit {
           window.location.reload();
         },
         (error) => {
-          this.errorMessage = error.error.message;
+          this.errorMessage = error.error;
         }
       );
     }

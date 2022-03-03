@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit {
         this.itemsPerPage = itemsPerPage;
       },
       (error) => {
-        this.errorMessage = error.message;
+        this.errorMessage = error.error;
       }
     );
   }
@@ -65,7 +65,7 @@ export class HomeComponent implements OnInit {
         console.log(data);
       },
       (error) => {
-        this.errorMessage = error.message;
+        this.errorMessage = error.error;
       }
     );
   }

@@ -40,7 +40,7 @@ export class RoleDetailComponent implements OnInit {
           this.item = data;
         },
         (error: any) => {
-          this.errorMessage = error.message;
+          this.errorMessage = error.error;
         }
       );
     }
@@ -54,7 +54,7 @@ export class RoleDetailComponent implements OnInit {
           this.item = data;
         },
         (err: any) => {
-          this.errorMessage = err.message;
+          this.errorMessage = err.error;
         }
       );
     } else {
@@ -70,7 +70,7 @@ export class RoleDetailComponent implements OnInit {
           );
         },
         (err: any) => {
-          this.errorMessage = err.message;
+          this.errorMessage = err.error;
         }
       );
     }

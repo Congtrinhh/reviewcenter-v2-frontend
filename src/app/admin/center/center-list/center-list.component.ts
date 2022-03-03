@@ -66,7 +66,7 @@ export class CenterListComponent implements OnInit {
         this.retrieveItems(basePath, this.searchTerms);
       },
       (error) => {
-        this.errorMessage = error.message;
+        this.errorMessage = error.error;
       }
     );
   }
@@ -95,7 +95,7 @@ export class CenterListComponent implements OnInit {
         this.items = data.centers;
       },
       (error) => {
-        this.errorMessage = error.message;
+        this.errorMessage = error.error;
       }
     );
   }

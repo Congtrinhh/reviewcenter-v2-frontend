@@ -16,7 +16,6 @@ import { CenterDetailComponent } from './center/center-detail/center-detail.comp
 import { UserListComponent } from './user/user-list/user-list.component';
 import { UserDetailComponent } from './user/user-detail/user-detail.component';
 import { LoginAdminComponent } from './login-admin/login-admin.component';
-import { UserDetailReactiveFormComponent } from './user-detail-reactive-form/user-detail-reactive-form.component';
 import { AdminRoutingModule } from './admin-routing.module';
 
 @NgModule({
@@ -34,7 +33,6 @@ import { AdminRoutingModule } from './admin-routing.module';
     UserListComponent,
     UserDetailComponent,
     LoginAdminComponent,
-    UserDetailReactiveFormComponent,
   ],
   imports: [
     CommonModule,

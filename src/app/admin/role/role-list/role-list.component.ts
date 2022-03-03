@@ -63,7 +63,7 @@ export class RoleListComponent implements OnInit {
         this.retrieveItems(basePath, this.searchTerms);
       },
       (error) => {
-        this.errorMessage = error.message;
+        this.errorMessage = error.error;
       }
     );
   }
@@ -92,7 +92,7 @@ export class RoleListComponent implements OnInit {
         this.items = data.roles;
       },
       (error) => {
-        this.errorMessage = error.message;
+        this.errorMessage = error.error;
       }
     );
   }

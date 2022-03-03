@@ -51,14 +51,19 @@ export class CenterDetailGuestComponent implements OnInit {
       return;
     }
 
-    this.centerService.getAllDetail('centers/' + slug).subscribe((data) => {
-      console.log(data);
-      this.center = data.center.center;
-      this.comments = data.comment.comments;
-      this.rate = data.rate.rate;
-      this.currentPage = data.comment.currentPage;
-      this.totalItems = data.comment.totalItems;
-    });
+    this.centerService.getAllDetail('centers/' + slug).subscribe(
+      (data) => {
+        console.log(data);
+        this.center = data.center.center;
+        this.comments = data.comment.comments;
+        this.rate = data.rate.rate;
+        this.currentPage = data.comment.currentPage;
+        this.totalItems = data.comment.totalItems;
+      },
+      (error) => {
+        this.errorMessage = error.error;
+      }
+    );
   }
 
   handlePageChange(newPage: number): void {
@@ -69,9 +74,14 @@ export class CenterDetailGuestComponent implements OnInit {
 
     this.centerService
       .getComments('centers/comments', this.searchTerms)
-      .subscribe((data) => {
-        console.log(data);
-      });
+      .subscribe(
+        (data) => {
+          console.log(data);
+        },
+        (error) => {
+          this.errorMessage = error.error;
+        }
+      );
   }
 
   handleGiveARateClicked() {

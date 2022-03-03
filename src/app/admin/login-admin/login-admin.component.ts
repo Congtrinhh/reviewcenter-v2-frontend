@@ -46,7 +46,7 @@ export class LoginAdminComponent implements OnInit {
         this.login(data.user);
       },
       (err) => {
-        this.errorMessage = `login failed, error: ${err.error.message}`;
+        this.errorMessage = `login failed, error: ${err.error}`;
         this.isLoginFailed = true;
       }
     );

@@ -63,7 +63,7 @@ export class UserListComponent implements OnInit {
         this.retrieveItems(basePath, this.searchTerms);
       },
       (error) => {
-        this.errorMessage = error.message;
+        this.errorMessage = error.error;
       }
     );
   }
@@ -92,7 +92,7 @@ export class UserListComponent implements OnInit {
         this.items = data.users;
       },
       (error) => {
-        this.errorMessage = error.error.message;
+        this.errorMessage = error.error;
       }
     );
   }
