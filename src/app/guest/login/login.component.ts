@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
 import { AppConstants } from '../_common/app.constants';
 import { UserInfo } from '../_models/user-info';
@@ -24,7 +24,8 @@ export class LoginComponent implements OnInit {
     private tokenStorageService: TokenStorageService,
     private route: ActivatedRoute,
     private userService: UserService,
-    private _location: Location
+    private _location: Location,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -56,7 +57,12 @@ export class LoginComponent implements OnInit {
     this.isLoginFailed = false;
     this.isLoggedIn = true;
     this.currentUser = this.tokenStorageService.getUser();
-    window.location.href = '';
+    const previousUrl = window.localStorage.getItem('previousUrl');
+    if (previousUrl) {
+      this.router.navigateByUrl(previousUrl);
+    } else {
+      this.router.navigateByUrl('');
+    }
   }
 
   back() {

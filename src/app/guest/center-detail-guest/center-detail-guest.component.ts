@@ -85,10 +85,13 @@ export class CenterDetailGuestComponent implements OnInit {
   }
 
   handleGiveARateClicked() {
-    this.openReviewBox = true;
     if (!this.isLoggedIn) {
+      console.log(this.router.url);
+      window.localStorage.setItem('previousUrl', this.router.url);
+
       this.router.navigate(['/login']);
     }
+    this.openReviewBox = true;
   }
 
   closeReviewBox() {
