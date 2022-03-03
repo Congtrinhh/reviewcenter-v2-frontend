@@ -79,6 +79,7 @@ export class CenterDetailComponent implements OnInit {
         .subscribe(
           (data: any) => {
             this.item = data;
+            window.location.reload();
           },
           (err: any) => {
             this.errorMessage = err.error;

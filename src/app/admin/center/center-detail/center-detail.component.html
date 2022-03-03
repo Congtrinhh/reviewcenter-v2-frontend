@@ -131,7 +131,7 @@
         type="file"
         name="image-file"
         (change)="handleImageFileChange($event)"
-        required
+        [required]="createMode"
       />
     </div>
 
