@@ -61,7 +61,9 @@ export class ReviewBoxComponent implements OnInit {
         },
         (error) => {
           console.log(error);
-          this.errorMessage = error.error.message;
+          this.errorMessage =
+            error.error.message ||
+            'đã xảy ra lỗi, có thể do bạn đã đánh giá trung tâm này rồi, bạn chỉ có thể đánh giá 1 trung tâm 1 lần';
         }
       );
     }
