@@ -21,10 +21,6 @@ export class DeleteConfirmModalComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
-  }
-
   raiseConfirmToDeleteEvent() {
     this.confirmToDeleteEvent.emit();
   }

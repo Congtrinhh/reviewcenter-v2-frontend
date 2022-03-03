@@ -57,11 +57,10 @@ export class ReviewBoxComponent implements OnInit {
     if (this.reviewForm.valid) {
       this.reviewService.createOne('review', this.reviewForm.value).subscribe(
         (data) => {
-          console.log(data);
           window.location.reload();
         },
         (error) => {
-          this.errorMessage = error.message;
+          this.errorMessage = error.error.message;
         }
       );
     }
@@ -73,5 +72,6 @@ export class ReviewBoxComponent implements OnInit {
       rate: '',
       comment: '',
     });
+    this.errorMessage = '';
   }
 }

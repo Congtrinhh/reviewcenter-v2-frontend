@@ -60,6 +60,8 @@
           <textarea formControlName="comment" id="comment-input" placeholder="Để lại bình luận..."></textarea>
         </div>
 
+        <div *ngIf="errorMessage" class="error-message">{{errorMessage}}</div>
+
         <button class="btn" [disabled]="reviewForm.invalid">Gửi</button>
       </form>
     </div>

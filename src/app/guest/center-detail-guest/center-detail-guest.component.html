@@ -1,14 +1,10 @@
 <main class="main-content">
   <div class="container">
     <section class="breadcrumb-container">
-      <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/">Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page">
-            {{ center.name }}
-          </li>
-        </ol>
-      </nav>
+      <div class="breadcrumb">
+        <a href="/" class="breadcrumb-home">Trang chủ</a>
+        <a class="breadcrumb-current">{{ center.name }}</a>
+      </div>
     </section>
 
     <section class="center">
@@ -21,7 +17,7 @@
       <div class="info">
         <h3 class="name">{{ center.name }}</h3>
         <p class="category-name badge badge-dark">{{ center.categoryName }}</p>
-        <p class="size">Nhân sự:{{ center.sizeMin }} - {{ center.sizeMax }}</p>
+        <p class="size">Nhân sự: {{ center.sizeMin }} - {{ center.sizeMax }}</p>
         <p class="address">{{ center.address }}</p>
       </div>
     </section>
@@ -71,7 +67,9 @@
 
     <section class="center-description">
       <p class="title">Mô tả về trung tâm</p>
-      <p class="paragraph">{{ center.description }}</p>
+      <p class="paragraph">
+        {{ center.description ? center.description : "Chưa có mô tả" }}
+      </p>
     </section>
 
     <section class="comments">

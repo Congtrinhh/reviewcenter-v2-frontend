@@ -9,7 +9,7 @@
         >
       </li>
       <li>
-        <a [href]="googleURL"
+        <a [href]="facebookURL"
           ><img src="/assets/img/facebook.png" alt="facebook logo" />
           <span>Login with Facebook</span></a
         >
@@ -22,7 +22,7 @@
       </li>
     </ul>
 
-    <div *ngIf="errorMessage" class="error-message">{{errorMessage}}</div>
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
 
     <div class="btns">
       <div (click)="back()" class="btn">Quay lại</div>

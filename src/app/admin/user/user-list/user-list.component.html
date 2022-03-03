@@ -123,7 +123,8 @@
           (cancelToDeleteEvent)="hideConfirmDeleteView()"
         ></app-delete-confirm-modal>
 
-        <div *ngIf="errorMessage">{{ errorMessage }}</div>
+        <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+
         <button type="button" class="btn btn-gray" (click)="back()">
           Về trang trước
         </button>

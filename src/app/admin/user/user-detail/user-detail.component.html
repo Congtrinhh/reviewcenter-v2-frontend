@@ -117,14 +117,25 @@
       </div>
     </div>
 
-    <div class="form-control">
-      <label for="avatar-url">Avatar url</label>
-      <input
-        id="avatar-url"
-        type="text"
-        formControlName="avatarUrl"
-        placeholder="avatarUrl"
-      />
+    <div class="form-control-wrapper">
+      <div class="form-control">
+        <label for="avatar-url">Avatar url</label>
+        <input
+          id="avatar-url"
+          type="text"
+          formControlName="avatarUrl"
+          placeholder="avatarUrl"
+        />
+      </div>
+      <div
+        *ngIf="
+          formControls.avatarUrl.invalid &&
+          (formControls.avatarUrl.touched || formControls.avatarUrl.dirty)
+        "
+        class="alert alert-danger"
+      >
+        Avatar url is invalid
+      </div>
     </div>
 
     <div class="form-control">
@@ -161,6 +172,9 @@
         readonly
       />
     </div>
+
+    <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+
     <button [disabled]="form.invalid" class="btn btn-submit">Submit</button>
   </form>
 

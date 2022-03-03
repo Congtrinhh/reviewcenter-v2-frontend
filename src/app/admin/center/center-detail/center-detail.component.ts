@@ -153,6 +153,8 @@ export class CenterDetailComponent implements OnInit {
     );
     if (isExtensionValid) {
       this.imageFile = file;
+    } else {
+      event.target.value = null;
     }
   }
 

@@ -1,4 +1,7 @@
+$box-padding: 30px;
+
 .main-content {
+  margin-bottom: 20px;
   .container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -16,7 +19,7 @@
 
     section.breadcrumb-container {
       grid-area: breadcrumb;
-      margin: 20px 0 50px 0;
+      margin: 20px 0;
       box-shadow: none;
     }
 
@@ -74,7 +77,7 @@ section.center {
 }
 
 section.rate {
-  padding: 30px;
+  padding: $box-padding;
   border-radius: 8px;
 
   .average-point {
@@ -96,15 +99,17 @@ section.rate {
       display: flex;
       align-items: center;
 
-      i {
-        color: gold;
+      .title {
+        width: 36px;
       }
-
+      .percent-indicator {
+        width: 44px;
+      }
       .progressive-bar {
-        width: 200px;
+        flex: 1;
         height: 12px;
         border-radius: 6px;
-        margin: 0 6px 0 10px;
+        margin: 0 6px;
         background-color: var(--gray-color);
         position: relative;
         .real-bar {
@@ -114,16 +119,15 @@ section.rate {
           border-radius: 6px;
         }
       }
-
-      .percent-indicator {
-        flex: 1;
+      i {
+        color: gold;
       }
     }
   }
 }
 
 section.center-description {
-  padding: 30px;
+  padding: $box-padding;
   border-radius: 8px;
   .title {
     margin-bottom: 30px;
@@ -154,16 +158,18 @@ section.comments {
         height: 48px;
         border-radius: 24px;
         object-fit: cover;
-        margin-right: 16px;
+        margin-right: 12px;
       }
 
       .info {
         .name {
           margin-right: 16px;
+          font-weight: 500;
         }
 
         .para {
           margin-top: 6px;
+          text-indent: 16px;
         }
       }
     }
@@ -172,6 +178,7 @@ section.comments {
       color: #999;
       text-align: right;
       font-style: italic;
+      margin-top: 6px;
     }
   }
 
@@ -202,4 +209,80 @@ section.comments {
 
 .review-5-star .stars > i {
   color: gold;
+}
+
+@media (max-width: 996px) {
+  .main-content {
+    .container {
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-areas:
+        "breadcrumb breadcrumb breadcrumb breadcrumb"
+        "center center center center"
+        "center-description center-description center-description center-description"
+        "rate-container rate-container rate rate"
+        "comments comments comments comments";
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    .container {
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-areas:
+        "breadcrumb breadcrumb breadcrumb"
+        "center center center"
+        "center-description center-description center-description"
+        "rate-container rate rate"
+        "comments comments comments";
+    }
+  }
+
+  section.center-description {
+    .title {
+      margin-bottom: 16px;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .main-content {
+    .container {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "breadcrumb"
+        "center"
+        "center-description"
+        "rate"
+        "rate-container"
+        "comments";
+    }
+  }
+
+  section.comments {
+    .comment {
+      .top {
+        img {
+          width: 40px;
+          height: 40px;
+          border-radius: 20px;
+          object-fit: cover;
+          margin-right: 12px;
+        }
+
+        .info {
+          .name {
+            margin-right: 16px;
+          }
+
+          .para {
+            margin-top: 6px;
+          }
+          > * {
+            display: block;
+          }
+        }
+      }
+    }
+  }
 }

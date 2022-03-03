@@ -96,8 +96,4 @@ export class CenterDetailGuestComponent implements OnInit {
       (100 * detailRate.totalRatedTimes) / this.rate.totalRateTimes
     );
   }
-
-  toLocaleString(rawDateString: string): string {
-    return 'moment().format()';
-  }
 }

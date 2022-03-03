@@ -187,3 +187,50 @@ label::selection {
   outline: 0;
   box-shadow: none;
 }
+
+// breadcrumb
+.breadcrumb {
+  .breadcrumb-home::after {
+    content: "/";
+    margin-left: 6px;
+    color: #6c757d;
+  }
+
+  .breadcrumb-current {
+    margin-left: 6px;
+    color: #6c757d;
+    cursor: default;
+  }
+}
+
+// error message
+.error-message {
+  text-align: left;
+  color: red;
+  margin: 6px 0;
+}
+
+// -------------------- RESPONSIVE -----------------------
+@media (max-width: 1100px) {
+  .container {
+    max-width: 996px;
+  }
+}
+
+@media (max-width: 996px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    max-width: 576px;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    max-width: 440px;
+  }
+}

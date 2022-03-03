@@ -8,8 +8,9 @@
   <!-- form -->
   <form #detailForm="ngForm" (ngSubmit)="detailForm.form.valid && onSubmit()">
     <div class="form-control">
-      <label for="">Name</label>
+      <label for="name">Name</label>
       <input
+        id="name"
         type="text"
         #name="ngModel"
         [(ngModel)]="item.name"
@@ -36,8 +37,13 @@
       />
     </div>
     <div class="form-control">
-      <label for="">Enabled</label>
-      <input type="checkbox" [(ngModel)]="item.enabled" name="enabled" />
+      <label for="enabled">Enabled</label>
+      <input
+        type="checkbox"
+        [(ngModel)]="item.enabled"
+        name="enabled"
+        id="enabled"
+      />
     </div>
 
     <div *ngIf="detailForm.submitted && name.invalid" class="error">

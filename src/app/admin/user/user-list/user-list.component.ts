@@ -92,7 +92,7 @@ export class UserListComponent implements OnInit {
         this.items = data.users;
       },
       (error) => {
-        this.errorMessage = error.message;
+        this.errorMessage = error.error.message;
       }
     );
   }

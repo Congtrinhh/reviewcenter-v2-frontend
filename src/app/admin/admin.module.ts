@@ -15,7 +15,6 @@ import { CenterListComponent } from './center/center-list/center-list.component'
 import { CenterDetailComponent } from './center/center-detail/center-detail.component';
 import { UserListComponent } from './user/user-list/user-list.component';
 import { UserDetailComponent } from './user/user-detail/user-detail.component';
-import { UrlValidatorDirective } from './_helpers/url-validator.directive';
 import { LoginAdminComponent } from './login-admin/login-admin.component';
 import { UserDetailReactiveFormComponent } from './user-detail-reactive-form/user-detail-reactive-form.component';
 import { AdminRoutingModule } from './admin-routing.module';
@@ -34,7 +33,6 @@ import { AdminRoutingModule } from './admin-routing.module';
     CenterDetailComponent,
     UserListComponent,
     UserDetailComponent,
-    UrlValidatorDirective,
     LoginAdminComponent,
     UserDetailReactiveFormComponent,
   ],

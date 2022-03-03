@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../_models/user.model';
 import { Location } from '@angular/common';
+import { AvatarUrlValidator } from '../../_helpers/avatar-url.validator';
 
 const basePath = 'users';
 const roleBasePath = 'roles';
@@ -42,7 +43,7 @@ export class UserDetailComponent implements OnInit {
         displayName: ['', Validators.required],
         password: ['', [Validators.required, Validators.minLength(6)]],
         provider: '',
-        avatarUrl: '',
+        avatarUrl: ['', AvatarUrlValidator],
         enabled: true,
         createdDate: '',
         modifiedDate: '',
@@ -103,7 +104,8 @@ export class UserDetailComponent implements OnInit {
           window.location.href = 'admin/users/' + data.id;
         },
         (error) => {
-          this.errorMessage = error.message;
+          console.log(error);
+          this.errorMessage = error.error.message;
         }
       );
     } else {
@@ -112,7 +114,7 @@ export class UserDetailComponent implements OnInit {
           window.location.reload();
         },
         (error) => {
-          this.errorMessage = error.message;
+          this.errorMessage = error.error.message;
         }
       );
     }

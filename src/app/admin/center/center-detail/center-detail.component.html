@@ -125,7 +125,7 @@
     </div>
 
     <div class="form-control">
-      <label for="image-file">Select file</label>
+      <label for="image-file">Select image file</label>
       <input
         id="image-file"
         type="file"
@@ -146,8 +146,13 @@
     </div>
 
     <div class="form-control">
-      <label for="">Enabled</label>
-      <input type="checkbox" [(ngModel)]="item.enabled" name="enabled" />
+      <label for="enabled">Enabled</label>
+      <input
+        type="checkbox"
+        [(ngModel)]="item.enabled"
+        name="enabled"
+        id="enabled"
+      />
     </div>
 
     <div class="form-control">
