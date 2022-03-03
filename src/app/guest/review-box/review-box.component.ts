@@ -60,6 +60,7 @@ export class ReviewBoxComponent implements OnInit {
           window.location.reload();
         },
         (error) => {
+          console.log(error);
           this.errorMessage = error.error.message;
         }
       );
