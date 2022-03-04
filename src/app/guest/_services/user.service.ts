@@ -1,3 +1,4 @@
+import { UserInfo } from './../_models/user-info';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -14,7 +15,10 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   // for social login - get currently authenticated user from server context
-  getCurrentUser(): Observable<any> {
-    return this.http.get(AppConstants.API_URL + 'user/me', httpOptions);
+  getCurrentUser(): Observable<UserInfo> {
+    return this.http.get<UserInfo>(
+      AppConstants.API_URL + 'user/me',
+      httpOptions
+    );
   }
 }
