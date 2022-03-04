@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log('login init');
     const token: string = this.route.snapshot.queryParamMap.get('token')!;
     const error: string = this.route.snapshot.queryParamMap.get('error')!;
 
@@ -69,6 +70,7 @@ export class LoginComponent implements OnInit {
     const previousUrl = window.localStorage.getItem('previousUrl');
     if (previousUrl) {
       this.router.navigateByUrl(previousUrl);
+      window.localStorage.setItem('previousUrl', '');
     } else {
       this.router.navigateByUrl('');
     }

@@ -19,6 +19,7 @@ export class GuestComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log('home init');
     this.isLoggedIn = !!this.tokenStorageService.getToken(); // if token exists, then true
 
     // const token = this.tokenStorageService.getToken();
