@@ -33,6 +33,8 @@ export class CenterDetailGuestComponent implements OnInit {
   isLoggedIn = false;
   openReviewBox = false;
 
+  showLoader = false;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private centerService: CenterDetailGuestService,
@@ -51,19 +53,25 @@ export class CenterDetailGuestComponent implements OnInit {
       return;
     }
 
-    this.centerService.getAllDetail('centers/' + slug).subscribe(
-      (data) => {
-        console.log(data);
-        this.center = data.center.center;
-        this.comments = data.comment.comments;
-        this.rate = data.rate.rate;
-        this.currentPage = data.comment.currentPage;
-        this.totalItems = data.comment.totalItems;
-      },
-      (error) => {
-        this.errorMessage = error.error;
-      }
-    );
+    this.showLoader = true;
+    this.centerService
+      .getAllDetail('centers/' + slug)
+      .subscribe(
+        (data) => {
+          console.log(data);
+          this.center = data.center.center;
+          this.comments = data.comment.comments;
+          this.rate = data.rate.rate;
+          this.currentPage = data.comment.currentPage;
+          this.totalItems = data.comment.totalItems;
+        },
+        (error) => {
+          this.errorMessage = error.error;
+        }
+      )
+      .add(() => {
+        this.showLoader = false;
+      });
   }
 
   handlePageChange(newPage: number): void {
@@ -72,6 +80,7 @@ export class CenterDetailGuestComponent implements OnInit {
     this.searchTerms.page = this.currentPage;
     this.searchTerms.centerId = this.center.id;
 
+    this.showLoader = true;
     this.centerService
       .getComments('centers/comments', this.searchTerms)
       .subscribe(
@@ -81,7 +90,10 @@ export class CenterDetailGuestComponent implements OnInit {
         (error) => {
           this.errorMessage = error.error;
         }
-      );
+      )
+      .add(() => {
+        this.showLoader = false;
+      });
   }
 
   handleGiveARateClicked() {

@@ -20,6 +20,8 @@ export class LoginComponent implements OnInit {
   facebookURL = AppConstants.FACEBOOK_AUTH_URL;
   githubURL = AppConstants.GITHUB_AUTH_URL;
 
+  showLoader = false;
+
   constructor(
     private tokenStorageService: TokenStorageService,
     private route: ActivatedRoute,
@@ -37,15 +39,22 @@ export class LoginComponent implements OnInit {
       this.currentUser = this.tokenStorageService.getUser();
     } else if (token) {
       this.tokenStorageService.saveToken(token);
-      this.userService.getCurrentUser().subscribe(
-        (data) => {
-          this.login(data);
-        },
-        (err) => {
-          this.errorMessage = err.error;
-          this.isLoginFailed = true;
-        }
-      );
+
+      this.showLoader = true;
+      this.userService
+        .getCurrentUser()
+        .subscribe(
+          (data) => {
+            this.login(data);
+          },
+          (err) => {
+            this.errorMessage = err.error;
+            this.isLoginFailed = true;
+          }
+        )
+        .add(() => {
+          this.showLoader = false;
+        });
     } else if (error) {
       this.errorMessage = error;
       this.isLoginFailed = true;

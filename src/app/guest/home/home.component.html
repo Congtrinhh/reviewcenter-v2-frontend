@@ -1,3 +1,4 @@
+<app-loader [show]="showLoader"></app-loader>
 <main class="main-content">
   <div class="container">
     <section class="search"><app-search></app-search></section>
@@ -44,7 +45,7 @@
                 <span class="size"
                   >Nhân sự: {{ center.sizeMin }} - {{ center.sizeMax }}</span
                 >
-                <span class="category-name badge badge-primary">{{
+                <span class="category-name badge badge-primary capitalize">{{
                   center.categoryName
                 }}</span>
               </div>

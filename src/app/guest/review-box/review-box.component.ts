@@ -1,4 +1,3 @@
-import { Rating } from './../../admin/_models/rating.model';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FormBuilder,
@@ -18,6 +17,8 @@ export class ReviewBoxComponent implements OnInit {
   @Input() open = false;
   @Input() centerId: any;
   reviewForm!: FormGroup;
+
+  showLoader = false;
 
   @Output() closeViewEvent = new EventEmitter();
 
@@ -55,15 +56,20 @@ export class ReviewBoxComponent implements OnInit {
       new FormControl(currentUser.id, Validators.required)
     );
     if (this.reviewForm.valid) {
-      this.reviewService.createOne('review', this.reviewForm.value).subscribe(
-        (data) => {
-          window.location.reload();
-        },
-        (error) => {
-          console.log(error);
-          this.errorMessage = error.error;
-        }
-      );
+      this.showLoader = true;
+      this.reviewService
+        .createOne('review', this.reviewForm.value)
+        .subscribe(
+          (data) => {
+            window.location.reload();
+          },
+          (error) => {
+            this.errorMessage = error.error;
+          }
+        )
+        .add(() => {
+          this.showLoader = false;
+        });
     }
   }
 

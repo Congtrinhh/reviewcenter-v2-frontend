@@ -20,6 +20,7 @@ import { CenterDetailGuestComponent } from './center-detail-guest/center-detail-
 import { ReviewBoxComponent } from './review-box/review-box.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
   providers: [authInterceptorProviders],
@@ -31,6 +32,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     SearchComponent,
     CenterDetailGuestComponent,
     ReviewBoxComponent,
+    LoaderComponent,
   ],
   imports: [
     CommonModule,

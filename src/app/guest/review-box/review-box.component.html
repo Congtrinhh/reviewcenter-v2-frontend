@@ -1,6 +1,7 @@
 <div *ngIf="open" class="rate-container">
   <div class="overlay">
     <div class="modal-content">
+      <app-loader [show]="showLoader"></app-loader>
       <div class="top">
         <h2>Đánh giá trung tâm</h2>
         <span (click)="raiseCloseViewEvent()" class="btn-cancel">&times;</span>
@@ -57,10 +58,14 @@
 
         <div class="form-control comment-control">
           <label for="comment-input">Bình luận</label>
-          <textarea formControlName="comment" id="comment-input" placeholder="Để lại bình luận..."></textarea>
+          <textarea
+            formControlName="comment"
+            id="comment-input"
+            placeholder="Để lại bình luận..."
+          ></textarea>
         </div>
 
-        <div *ngIf="errorMessage" class="error-message">{{errorMessage}}</div>
+        <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
 
         <button class="btn" [disabled]="reviewForm.invalid">Gửi</button>
       </form>

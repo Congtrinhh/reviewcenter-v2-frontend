@@ -28,24 +28,32 @@ export class HomeComponent implements OnInit {
 
   todayRatings: RatingNews[] = [];
 
+  showLoader = false;
+
   constructor(private baseService: BaseService) {}
 
   ngOnInit(): void {
-    this.baseService.getAll('home/all', null).subscribe(
-      (data: any) => {
-        this.categories = data.category.categories;
-        this.centers = data.center.centers;
-        this.todayRatings = data.news.todayRatings;
+    this.showLoader = true;
+    this.baseService
+      .getAll('home/all', null)
+      .subscribe(
+        (data: any) => {
+          this.categories = data.category.categories;
+          this.centers = data.center.centers;
+          this.todayRatings = data.news.todayRatings;
 
-        const { totalItems, currentPage, itemsPerPage } = data.center;
-        this.totalItems = totalItems;
-        this.currentPage = currentPage;
-        this.itemsPerPage = itemsPerPage;
-      },
-      (error) => {
-        this.errorMessage = error.error;
-      }
-    );
+          const { totalItems, currentPage, itemsPerPage } = data.center;
+          this.totalItems = totalItems;
+          this.currentPage = currentPage;
+          this.itemsPerPage = itemsPerPage;
+        },
+        (error) => {
+          this.errorMessage = error.error;
+        }
+      )
+      .add(() => {
+        this.showLoader = false;
+      });
   }
 
   handlePageChange(newPage: number) {
@@ -54,20 +62,26 @@ export class HomeComponent implements OnInit {
   }
 
   retrieveCenters() {
-    this.baseService.getAll('home/centers', this.searchTerms).subscribe(
-      (data: any) => {
-        this.centers = data.centers;
-        const { totalItems, currentPage, itemsPerPage } = data;
-        this.totalItems = totalItems;
-        this.currentPage = currentPage + 1;
-        this.itemsPerPage = itemsPerPage;
+    this.showLoader = true;
+    this.baseService
+      .getAll('home/centers', this.searchTerms)
+      .subscribe(
+        (data: any) => {
+          this.centers = data.centers;
+          const { totalItems, currentPage, itemsPerPage } = data;
+          this.totalItems = totalItems;
+          this.currentPage = currentPage + 1;
+          this.itemsPerPage = itemsPerPage;
 
-        console.log(data);
-      },
-      (error) => {
-        this.errorMessage = error.error;
-      }
-    );
+          console.log(data);
+        },
+        (error) => {
+          this.errorMessage = error.error;
+        }
+      )
+      .add(() => {
+        this.showLoader = false;
+      });
   }
 
   handleGetAllCategoriesBtnClicked() {
