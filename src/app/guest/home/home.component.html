@@ -15,7 +15,11 @@
         <li
           *ngFor="let category of categories"
           (click)="handleCategoryNameClicked($event, category.id)"
-          [ngClass]="category.id == currentCategoryId ? 'category-active' : ''"
+          [ngClass]="
+            category.id == currentCategoryId
+              ? 'category-active capitalize'
+              : 'capitalize'
+          "
         >
           {{ category.name }}
         </li>
