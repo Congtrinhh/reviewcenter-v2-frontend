@@ -19,28 +19,19 @@ export class GuestComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('home init');
-    this.isLoggedIn = !!this.tokenStorageService.getToken(); // if token exists, then true
-
-    // const token = this.tokenStorageService.getToken();
-    // if (token) {
-    //   this.userService.getCurrentUser().subscribe((data: UserInfo) => {
-    //     this.user = data;
-    //     this.isLoggedIn = true;
-    //   }, error => {
-    //     this.isLoggedIn = false;
-    //   });
-    // } else {
-    //   this.isLoggedIn = false;
-    // }
+    this.isLoggedIn = this.tokenStorageService.isLoggedIn() == true;
 
     if (this.isLoggedIn) {
       this.user = this.tokenStorageService.getUser();
+      if (!this.user) {
+        this.tokenStorageService.setLoggedIn(false);
+        this.isLoggedIn = false;
+      }
     }
   }
 
   logout(): void {
     this.tokenStorageService.signOut();
-    window.location.reload();
+    this.isLoggedIn = false;
   }
 }

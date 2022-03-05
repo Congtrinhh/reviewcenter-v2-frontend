@@ -12,4 +12,5 @@ export class Center {
   imageString?: string;
   slug?: string;
   categoryName?: string;
+  averageRateNumber?: number;
 }

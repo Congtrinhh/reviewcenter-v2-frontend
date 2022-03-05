@@ -12,10 +12,10 @@ import { UserService } from '../_services/user.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  isLoggedIn: boolean = false;
-  isLoginFailed: boolean = false;
   errorMessage: string = '';
-  currentUser: any;
+
+  currentUser!: UserInfo;
+
   googleURL = AppConstants.GOOGLE_AUTH_URL;
   facebookURL = AppConstants.FACEBOOK_AUTH_URL;
   githubURL = AppConstants.GITHUB_AUTH_URL;
@@ -31,13 +31,15 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('login init');
     const token: string = this.route.snapshot.queryParamMap.get('token')!;
     const error: string = this.route.snapshot.queryParamMap.get('error')!;
 
     if (this.tokenStorageService.getToken()) {
-      this.isLoggedIn = true;
       this.currentUser = this.tokenStorageService.getUser();
+      if (!this.currentUser) {
+        this.errorMessage = "login failed, can't get user"
+        this.tokenStorageService.setLoggedIn(false);
+      }
     } else if (token) {
       this.tokenStorageService.saveToken(token);
 
@@ -50,7 +52,7 @@ export class LoginComponent implements OnInit {
           },
           (err) => {
             this.errorMessage = err.error;
-            this.isLoginFailed = true;
+            this.tokenStorageService.setLoggedIn(false);
           }
         )
         .add(() => {
@@ -58,15 +60,17 @@ export class LoginComponent implements OnInit {
         });
     } else if (error) {
       this.errorMessage = error;
-      this.isLoginFailed = true;
+      this.tokenStorageService.setLoggedIn(false);
     }
   }
 
   login(user: UserInfo): void {
     this.tokenStorageService.saveUser(user);
-    this.isLoginFailed = false;
-    this.isLoggedIn = true;
     this.currentUser = this.tokenStorageService.getUser();
+    if (this.currentUser){
+      this.tokenStorageService.setLoggedIn(true);
+    }
+
     const previousUrl = window.localStorage.getItem('previousUrl');
     if (previousUrl) {
       this.router.navigateByUrl(previousUrl);

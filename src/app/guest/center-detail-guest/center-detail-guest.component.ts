@@ -94,6 +94,12 @@ export class CenterDetailGuestComponent implements OnInit {
       .add(() => {
         this.showLoader = false;
       });
+
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
   }
 
   handleGiveARateClicked() {

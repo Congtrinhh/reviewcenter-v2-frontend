@@ -43,7 +43,14 @@
           <a [routerLink]="['/centers', center.slug]">
             <img [src]="base64Prefix + center.imageString" alt="avatar" />
             <div class="info">
-              <div class="name">{{ center.name }}</div>
+              <div class="name">
+                {{ center.name }}
+              </div>
+
+              <div class="average-rate-number">
+                {{ center.averageRateNumber }}
+                <i class="fa-solid fa-star"></i>
+              </div>
 
               <div class="middle">
                 <span class="size"
@@ -91,6 +98,9 @@
           <a class="link" [routerLink]="['/centers', rating.centerSlug]"
             >Chi tiết</a
           >
+        </li>
+        <li *ngIf="todayRatings.length == 0" class="pb-4">
+          Chưa có review mới, hãy là người đầu tiên!
         </li>
       </ul>
     </section>

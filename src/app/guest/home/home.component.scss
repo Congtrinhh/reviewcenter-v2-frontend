@@ -117,6 +117,13 @@
                 justify-content: space-between;
                 align-items: center;
               }
+
+              .average-rate-number {
+                font-weight: 500;
+                i {
+                  color: gold;
+                }
+              }
             }
           }
         }

@@ -38,6 +38,7 @@ export class HomeComponent implements OnInit {
       .getAll('home/all', null)
       .subscribe(
         (data: any) => {
+          console.log(data);
           this.categories = data.category.categories;
           this.centers = data.center.centers;
           this.todayRatings = data.news.todayRatings;
@@ -59,6 +60,12 @@ export class HomeComponent implements OnInit {
   handlePageChange(newPage: number) {
     this.searchTerms.page = newPage - 1;
     this.retrieveCenters();
+
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
   }
 
   retrieveCenters() {
